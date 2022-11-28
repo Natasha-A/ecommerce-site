@@ -1,0 +1,49 @@
+[{
+  "_id": {
+    "$oid": "6385180539ba9af7f2a4d220"
+  },
+  "name": "Winter Short Sleeves Tee",
+  "price": 54,
+  "color": [
+    "matcha",
+    "black",
+    "white"
+  ],
+  "size": [
+    "F"
+  ],
+  "category": "Top",
+  "image": "WinterShortSleevesTee.png"
+},{
+  "_id": {
+    "$oid": "6385180c39ba9af7f2a4d221"
+  },
+  "name": "Classic Dark Blue Jeans",
+  "price": 69,
+  "color": [
+    "dark blue"
+  ],
+  "size": [
+    "S",
+    "M",
+    "L"
+  ],
+  "category": "Bottoms",
+  "image": "ClassicDarkBlueJeans.png"
+},{
+  "_id": {
+    "$oid": "6385189b39ba9af7f2a4d222"
+  },
+  "name": "Oversized Tee Hem Sweatshirt",
+  "price": 39,
+  "color": [
+    "charocoal",
+    "blue",
+    "light yellow"
+  ],
+  "size": [
+    "F"
+  ],
+  "category": "Tops",
+  "image": "OversizedTeeHemSweatshirt.png"
+}]
