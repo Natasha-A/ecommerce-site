@@ -6,6 +6,8 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Clothing Shop' });
 });
 
+// PRODUCT ROUTES 
+
 // GET request for creating a product 
 router.get("/create", function(req, res, next) {
   res.render('product_form', {title: 'Not implemented: GET Create Product'})
@@ -41,8 +43,17 @@ router.get('/product/:id', function(req, res, next) {
   res.render('product_detail', {title: 'Not implemented: GET Product Detail'})
 })
 
+// ORDER ROUTES
 
+// GET request for Order details
+router.get('/order/:id', function(req, res, next) {
+  res.render('order_form', {title: 'Not implemented: GET Order Form'})
+})
 
+// POST request for Order details
+router.post('/order/:id', function(req, res, next) {
+  res.render('order_form', {title: 'Not implemented: POST Order Form'})
+})
 
 
 module.exports = router;
