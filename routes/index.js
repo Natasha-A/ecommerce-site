@@ -12,6 +12,7 @@ router.get('/', function (req, res, next) {
 
     }
     else {
+      console.log(productsArray);
       res.render('index', { title: 'Clothing Shop | List of Clothing', products: productsArray });
     }
   })
