@@ -10,7 +10,7 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
-mongoose.connect("mongodb://localhost/ecommerce")
+mongoose.connect("mongodb+srv://ecommerce-site:ecommerce@cluster0.k9yvipi.mongodb.net/ecommerce")
 let dbconnection = mongoose.connection;
 dbconnection.once("open", () => { console.log("Connected to mongodb") });
 dbconnection.on("error", () => { console.log("Failed to execute db command") });
