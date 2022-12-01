@@ -1,11 +1,21 @@
 var express = require('express');
 var router = express.Router();
+const mongoose = require("mongoose");
+const Product = require("../schemas/Products");
+
 
 // GET site home page.
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Clothing Shop' });
-});
+router.get('/', function (req, res, next) {
+  Product.find({}, (error,productsArray) => {
+    if (error) {
+      console.log("Something bad happened");
 
+    }
+    else {
+      res.render('index', { title: 'Clothing Shop | List of Clothing', products: productsArray });
+    }
+  })
+});
 // PRODUCT ROUTES 
 
 // GET request for creating a product 
