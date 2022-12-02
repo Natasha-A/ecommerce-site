@@ -21,7 +21,7 @@ category:{
     required : true,
 },
 image:{
-    type: String,
+    type: [String],
     required : false,
 },
 posted_by:{
@@ -30,4 +30,4 @@ posted_by:{
 }
 });
 
-module.exports = mongoose.model("Producrs", prodSchema);
+module.exports = mongoose.model("Products", prodSchema);
