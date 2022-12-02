@@ -1,6 +1,18 @@
-extends layout
-
 block content
   h1= title
   p Welcome to #{title}
-  div hello
+  
+  each product in products 
+    div.productitem
+    div id:#{product.id}
+      div name:#{product.name}
+      div price: #{product.price}
+      div category : #{product.category}
+      div image : #{product.image}
+      div posted_by : #{product.posted_by}
+      div color:
+        each color in product.color
+          div #{color}
+      div size:
+        each size in product.size
+          div #{size}
