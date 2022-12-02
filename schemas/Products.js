@@ -30,4 +30,4 @@ posted_by:{
 }
 });
 
-module.exports = mongoose.model("Products", prodSchema);
+module.exports = mongoose.model("Product", prodSchema);

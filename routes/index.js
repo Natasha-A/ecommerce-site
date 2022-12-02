@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const mongoose = require("mongoose");
-const Product = require("../schemas/Products");
+const Product = require("../schemas/products");
 
 
 // GET site home page.
@@ -12,6 +12,7 @@ router.get('/', function (req, res, next) {
 
     }
     else {
+      console.log(productsArray);
       res.render('index', { title: 'Clothing Shop | List of Clothing', products: productsArray });
     }
   })
@@ -49,8 +50,7 @@ router.post('/:id/update', function(req, res, next) {
 })
 
 // GET request for one Product 
-app.route("/product/:id")
-.get((req, res) => {
+router.get('/product/:id', function(req,res) {
   var id = req.params.id;
   Product.findById(id, (error, product) => {
     if (error) {
