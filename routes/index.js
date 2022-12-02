@@ -12,7 +12,6 @@ router.get('/', function (req, res, next) {
 
     }
     else {
-      console.log(productsArray);
       res.render('index', { title: 'Clothing Shop | List of Clothing', products: productsArray });
     }
   })
@@ -57,6 +56,7 @@ router.get('/product/:id', function(req,res) {
       res.end("404 - No this product");
     }
     else {
+      console.log(product)
       res.render('product_detail', { title: 'product_detail', product: product });
     }
   });
