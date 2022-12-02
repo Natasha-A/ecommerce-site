@@ -1,20 +1,42 @@
 [{
   "_id": {
-    "$oid": "6385212739ba9af7f2a4d249"
+    "$oid": "638a38cab8db7a8401c44f50"
   },
-  "products": [
-    "6385189b39ba9af7f2a4d222",
-    "6385180539ba9af7f2a4d220"
-  ],
-  "added_by": "63851aba39ba9af7f2a4d22b",
-  "order_confirm": 1
-},{
-  "_id": {
-    "$oid": "6385217c39ba9af7f2a4d252"
+  "order_by": "6389535a05d2a7b8d29eb5f9",
+  "order_date": {
+    "$date": {
+      "$numberLong": "1669852800000"
+    }
   },
-  "products": [
-    "6385189b39ba9af7f2a4d222"
-  ],
-  "added_by": "6385215e39ba9af7f2a4d24f",
-  "order_confirm": 0
+  "order_items": [
+    {
+      "product_id": "638925fb33103cc98fee517e",
+      "product_name": "Winter Short Sleeves Tee",
+      "size": "F",
+      "color": "matcha",
+      "quantity": 1,
+      "order_by": "6389535a05d2a7b8d29eb5f9",
+      "order_confirm": true,
+      "product_img": [
+        "WinterShortSleevesTee0.png",
+        "WinterShortSleevesTee1.png",
+        "WinterShortSleevesTee2.png"
+      ],
+      "price_per_unit": 54
+    },
+    {
+      "product_id": "6389270c33103cc98fee517f",
+      "product_name": "Classic Dark Blue Jeans",
+      "size": "S",
+      "color": "dark blue",
+      "quantity": 1,
+      "order_by": "6389535a05d2a7b8d29eb5f9",
+      "order_confirm": true,
+      "product_img": [
+        "ClassicDarkBlueJeans0.png",
+        "ClassicDarkBlueJeans1.png"
+      ],
+      "price_per_unit": 69
+    }
+  ]
 }]

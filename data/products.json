@@ -1,6 +1,6 @@
 [{
   "_id": {
-    "$oid": "6385180539ba9af7f2a4d220"
+    "$oid": "638925fb33103cc98fee517e"
   },
   "name": "Winter Short Sleeves Tee",
   "price": 54,
@@ -13,10 +13,15 @@
     "F"
   ],
   "category": "Top",
-  "image": "WinterShortSleevesTee.png"
+  "image": [
+    "WinterShortSleevesTee0.png",
+    "WinterShortSleevesTee1.png",
+    "WinterShortSleevesTee2.png"
+  ],
+  "posted_by": "6389534c05d2a7b8d29eb5f8"
 },{
   "_id": {
-    "$oid": "6385180c39ba9af7f2a4d221"
+    "$oid": "6389270c33103cc98fee517f"
   },
   "name": "Classic Dark Blue Jeans",
   "price": 69,
@@ -29,13 +34,37 @@
     "L"
   ],
   "category": "Bottoms",
-  "image": "ClassicDarkBlueJeans.png"
+  "image": [
+    "ClassicDarkBlueJeans0.png",
+    "ClassicDarkBlueJeans1.png"
+  ],
+  "posted_by": "6389534c05d2a7b8d29eb5f8"
 },{
   "_id": {
-    "$oid": "6385189b39ba9af7f2a4d222"
+    "$oid": "638959aa05d2a7b8d29eb5fb"
+  },
+  "name": "Olive Brown Knit Cardigan Set",
+  "price": 68,
+  "color": [
+    "olive"
+  ],
+  "size": [
+    "F"
+  ],
+  "category": "Top",
+  "image": [
+    "OliveBrownKnitCardiganSet0.png",
+    "OliveBrownKnitCardiganSet1.png",
+    "OliveBrownKnitCardiganSet2.png",
+    "OliveBrownKnitCardiganSet3.png"
+  ],
+  "posted_by": "6389534c05d2a7b8d29eb5f8"
+},{
+  "_id": {
+    "$oid": "63895ab505d2a7b8d29eb5fe"
   },
   "name": "Oversized Tee Hem Sweatshirt",
-  "price": 39,
+  "price": 75,
   "color": [
     "charocoal",
     "blue",
@@ -44,6 +73,35 @@
   "size": [
     "F"
   ],
-  "category": "Tops",
-  "image": "OversizedTeeHemSweatshirt.png"
+  "category": "Top",
+  "image": [
+    "OversizedTeeHemSweatshirt0.png",
+    "OversizedTeeHemSweatshirt1.png",
+    "OversizedTeeHemSweatshirt2.png",
+    "OversizedTeeHemSweatshirt3.png"
+  ],
+  "posted_by": "6389534c05d2a7b8d29eb5f8"
+},{
+  "_id": {
+    "$oid": "63895ba805d2a7b8d29eb5ff"
+  },
+  "name": "Oversized Tee Hem Sweatshirt",
+  "price": 39,
+  "color": [
+    "Light Brown",
+    "Black"
+  ],
+  "size": [
+    "S",
+    "M",
+    "L"
+  ],
+  "category": "Bottoms",
+  "image": [
+    "SlimFitQualitySuitPants0.png",
+    "SlimFitQualitySuitPants1.png",
+    "SlimFitQualitySuitPants2.png",
+    "SlimFitQualitySuitPants3.png"
+  ],
+  "posted_by": "6385214e39ba9af7f2a4d24e"
 }]
