@@ -1,0 +1,18 @@
+block content
+  h1= title
+  p Welcome to #{title}
+  each product in product
+    div.productitem
+      div name:#{product.name}
+      div price: #{product.price}
+      div category : #{product.category}
+      div posted_by : #{product.posted_by}
+      div color:
+        each color in product.color
+          div #{color}
+      div size:
+        each size in product.size
+          div #{size}
+      div image:
+        each size in product.image
+          div #{image}

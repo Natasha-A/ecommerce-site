@@ -49,9 +49,19 @@ router.post('/:id/update', function(req, res, next) {
 })
 
 // GET request for one Product 
-router.get('/product/:id', function(req, res, next) {
-  res.render('product_detail', {title: 'Not implemented: GET Product Detail'})
+app.route("/product/:id")
+.get((req, res) => {
+  var id = req.params.id;
+  Product.findById(id, (error, product) => {
+    if (error) {
+      res.end("404 - No this product");
+    }
+    else {
+      res.render('product_detail', { title: 'product_detail', product: product });
+    }
+  });
 })
+;
 
 // ORDER ROUTES
 
@@ -59,6 +69,7 @@ router.get('/product/:id', function(req, res, next) {
 router.get('/order/:id', function(req, res, next) {
   res.render('order_form', {title: 'Not implemented: GET Order Form'})
 })
+
 
 // POST request for Order details
 router.post('/order/:id', function(req, res, next) {
