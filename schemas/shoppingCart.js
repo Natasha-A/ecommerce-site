@@ -16,10 +16,6 @@ color:{
     type: String,
     required : true,
 },
-product_img:{
-    type: [String],
-    required : true,
-},
 quantity:{
     type:Number,
     required : true,
@@ -30,6 +26,14 @@ order_by:{
 },
 order_confirm:{
     type: boolean,
+    required : true,
+},
+product_img:{
+    type: [String],
+    required : true,
+},
+price_per_unit:{
+    type: Number,
     required : true,
 }
 });

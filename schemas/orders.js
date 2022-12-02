@@ -6,7 +6,7 @@ order_by:{
     required : true,
 },
 order_items:{
-    type: {String},
+    type: [{String}],
     required : true,
 },
 order_date:{
