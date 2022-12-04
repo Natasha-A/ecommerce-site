@@ -25,7 +25,7 @@ order_by:{
     required : false,
 },
 order_confirm:{
-    type: boolean,
+    type: Boolean,
     required : true,
 },
 product_img:{
