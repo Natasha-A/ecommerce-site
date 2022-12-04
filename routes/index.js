@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const mongoose = require("mongoose");
 const Product = require("../schemas/products");
-
+const ShoppingCart = require("../schemas/shoppingCart");
 
 // GET site home page.
 router.get('/', function (req, res, next) {
@@ -60,8 +60,31 @@ router.get('/product/:id', function(req,res) {
       res.render('product_detail', { title: 'product_detail', product: product });
     }
   });
+});
+// SHOPPING CART ROUTES
+
+router.get('/cart', (req,res,next)=>{
+  const query = {order_by : "6389535a05d2a7b8d29eb5f9"}
+  const cursor = ShoppingCart.find(query, (error, orderitems)=> {
+    if (error) {
+      res.end("404 - error orderitems");
+    } else {
+
+
+      res.render('shopping_cart', {title: "Shopping Cart", orderitems:orderitems})
+    }
+  })
 })
-;
+router.post('/cart', (req,res,next)=>{
+  const query = {order_by : "6389535a05d2a7b8d29eb5f9"}
+  const cursor = ShoppingCart.find(query, (error, orderitems)=> {
+    if (error){
+      res.end("404 - error order");
+    } else {
+      let order = {}
+    }
+  })
+})
 
 // ORDER ROUTES
 
