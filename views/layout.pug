@@ -2,6 +2,14 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/main.css')
+    script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js')
+
+    script(src="https://kit.fontawesome.com/da32d6cbde.js" crossorigin="anonymous")
+
   body
+    include partials/navbar.pug
     block content
+    
+
+
