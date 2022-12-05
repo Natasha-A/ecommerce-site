@@ -1,0 +1,38 @@
+div.navbar
+
+  div.navbar__section1
+    h1 ShopX
+    div.navbar__links
+      a(href='/') View All 
+      a(href='/') Tops 
+      a(href='/') Bottoms 
+      a(href='/') Shoes 
+    
+  div.navbar__search 
+    div.fa-solid.fa-magnifying-glass
+    input(
+      type='text'
+      name='search'
+      placeholder='Search'
+    )
+  
+  div.navbar__account
+    div.navbar__account-info
+      if user
+        div.fa-solid.fa-circle-user
+        span.navbar__user Jeremy Woods 
+        div.navbar__user-links 
+          button View Account 
+          button Logout 
+      else
+        div.navbar__user-buttons
+          button Login 
+          button Sign Up
+          
+
+
+
+
+
+
+    
