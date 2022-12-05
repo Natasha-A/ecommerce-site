@@ -4,17 +4,31 @@ block append head
   link(rel='stylesheet', href='/stylesheets/homepage.css')
 
 block content  
-  each product in products 
-    div.productitem
-    div id:#{product.id}
-      div name:#{product.name}
-      div price: #{product.price}
-      div category : #{product.category}
-      div image : #{product.image}
-      div posted_by : #{product.posted_by}
-      div color:
-        each color in product.color
-          div #{color}
-      div size:
-        each size in product.size
-          div #{size}
+  div.main-container
+    each product in products
+      div.productitem
+        image.product-image(src='https://images.pexels.com/photos/6311652/pexels-photo-6311652.jpeg?auto=compress&cs=tinysrgb&w=400') 
+
+        div.product-info 
+          div.product-text
+            div.product-name #{product.name}
+            div.product-category #{product.category}
+          div.product-price $#{product.price}
+          div.p
+
+  
+
+  //- each product in products 
+  //-   div.productitem
+  //-   div id:#{product.id}
+  //-     div name:#{product.name}
+  //-     div price: #{product.price}
+  //-     div category : #{product.category}
+  //-     div image : #{product.image}
+  //-     div posted_by : #{product.posted_by}
+  //-     div color:
+  //-       each color in product.color
+  //-         div #{color}
+  //-     div size:
+  //-       each size in product.size
+  //-         div #{size}
