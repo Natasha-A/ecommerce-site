@@ -7,14 +7,13 @@ block content
   div.main-container
     each product in products
       div.productitem
-        image.product-image(src='https://images.pexels.com/photos/6311652/pexels-photo-6311652.jpeg?auto=compress&cs=tinysrgb&w=400') 
+        image.product-image(src=product.image[0]) 
 
         div.product-info 
           div.product-text
             div.product-name #{product.name}
             div.product-category #{product.category}
           div.product-price $#{product.price}
-          div.p
 
   
 
