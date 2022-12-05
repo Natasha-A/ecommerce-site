@@ -19,11 +19,14 @@ div.navbar
   div.navbar__account
     div.navbar__account-info
       if user
-        div.fa-solid.fa-circle-user
-        span.navbar__user Jeremy Woods 
-        div.navbar__user-links 
-          button View Account 
-          button Logout 
+        div.navbar__account-user
+          div.fa-solid.fa-circle-user
+          div.navbar__account-item
+            span.navbar__user Jeremy Woods 
+            div.navbar__user-buttons
+              button View Account 
+              button Logout 
+
       else
         div.navbar__user-buttons
           button Login 

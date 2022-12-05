@@ -94,7 +94,7 @@ a:hover {
 }
 
 .navbar__account .fa-solid.fa-circle-user {
-  font-size: 30px;
+  font-size: 50px;
   color:#b3b3b3;
 }
 
@@ -124,4 +124,25 @@ a:hover {
   background-color: transparent;
 }
 
+
+
+.navbar__account-user {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: row;
+  gap:10px;
+}
+
+.navbar__user {
+  font-size:18px;
+  font-weight: 700;
+  padding-left:10px;
+
+}
+
+.navbar__account-user .navbar__user-buttons button{
+  color: grey;
+  background-color: transparent;
+  padding:10px;
+}
 
