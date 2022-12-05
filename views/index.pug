@@ -1,8 +1,9 @@
 extends layout
-block content
-  h1= title
-  p Welcome to #{title}
-  
+
+block append head 
+  link(rel='stylesheet', href='/stylesheets/homepage.css')
+
+block content  
   each product in products 
     div.productitem
     div id:#{product.id}
