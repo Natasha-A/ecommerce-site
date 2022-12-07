@@ -1,0 +1,34 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@700&family=Inter:wght@300&family=Montserrat:wght@100;300;400;500;600;700;800&display=swap');
+
+body {
+  padding: 0px;
+  margin:0px;
+  box-sizing:border-box;
+  font-family: 'Montserrat';
+}
+
+h1 {
+  font-weight: 700;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+  border:1px solid grey;
+  margin:30px;
+  height: max-content;
+}
+
+.carousel-container {
+  width:500px;
+  min-height: 500px;
+}
+
+
+.carousel-control.left, .carousel-control.right {
+  background-image:none !important;
+  filter:none !important;
+}
+
+

@@ -57,7 +57,7 @@ router.get('/product/:id', function(req,res) {
     }
     else {
       console.log(product)
-      res.render('product_detail', { title: 'product_detail', product: product });
+      res.render('product_detail', { title:'Product Details', product: product });
     }
   });
 });

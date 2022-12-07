@@ -1,28 +1,61 @@
 extends layout
 
 block append head 
-  link(rel='stylesheet', href='/stylesheets/homepage.css')
+  link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css")
+  script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js")
+  script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js")
+  link(rel='stylesheet' href='/stylesheets/product_details.css')
+  link(rel='stylesheet' href='/stylesheets/main.css')
   
-block content    
-  h1= title
-  p Welcome to #{title}
-    div id:#{product.id}
-    div name:#{product.name}
-    div price: #{product.price}
-    div category : #{product.category}
-    div image : #{product.image}
-    div posted_by : #{product.posted_by}
-    div color:
-    select
-      each color in product.color
-        option(value=color.id) #{color}
-    div size:
-    select
-      each size in product.size
-        option(value=size.id) #{size}    
-    div image:
-      each image in product.image
-        div #{image}
-        //-  image.product-image(src=#{image}) 
-      a(href="" + product._id) Add to Shopping Cart
+
+
+  
+block content   
+
+  div.main-container
+    .carousel-container 
+      #myCarousel.carousel.slide(data-ride="carousel")
+        ol(class='carousel-indicators')
+          each image, index in product.image
+            li(data-target='#myCarousel' data-slide-to=index class="active")
+          
+        div.carousel-inner 
+          each image, index in product.image
+            if index == 0
+              div.item.active
+                image(src=image alt="image" style="width:100%")
+            else
+              div.item
+                image(src=image alt="image" style="width:100%")
+        
+        a.left.carousel-control(href="#myCarousel" data-slide="prev")
+          span.glyphicon.glyphicon-chevron-left
+            span.sr-only Previous
+
+        a.right.carousel-control(href="#myCarousel" data-slide="next")
+          span.glyphicon.glyphicon-chevron-right
+            span.sr-only Next
+
+
+
+  //- p Welcome to #{title}
+  //-   div id:#{product.id}
+  //-   div name:#{product.name}
+  //-   div price: #{product.price}
+  //-   div category : #{product.category}
+  //-   div image : #{product.image}
+  //-   div posted_by : #{product.posted_by}
+  //-   div color:
+  //-   select
+  //-     each color in product.color
+  //-       option(value=color.id) #{color}
+  //-   div size:
+  //-   select
+  //-     each size in product.size
+  //-       option(value=size.id) #{size}    
+  //-   div image:
+  //-     each image in product.image
+  //-       div #{image}
+  //-       //-  image.product-image(src=#{image}) 
+  //-     a(href="" + product._id) Add to Shopping Cart
       
