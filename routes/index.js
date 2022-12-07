@@ -4,6 +4,9 @@ const mongoose = require("mongoose");
 const Product = require("../schemas/products");
 const ShoppingCart = require("../schemas/shoppingCart");
 
+const TEST_USER_ID = "6389535a05d2a7b8d29eb5f9"
+
+
 // GET site home page.
 router.get('/', function (req, res, next) {
   Product.find({}, (error,productsArray) => {
@@ -61,6 +64,34 @@ router.get('/product/:id', function(req,res) {
     }
   });
 });
+
+// POST request for Product (Add to ShoppingCart)
+router.post('/product/:id', function(req,res) {
+    Product.findById(req.params.id, (errors,product) => {
+      
+      const orderItem = new ShoppingCart({
+        product_id: req.params.id, 
+        product_name: product.name, 
+        size: req.body.size,
+        color: req.body.color,
+        quantity: req.body.quantity, 
+        order_by:TEST_USER_ID, 
+        order_confirm:false,
+        product_image: product.image[0], 
+        price_per_unit:product.price
+      })
+      console.log("ORDER ITEM: " + orderItem)    
+
+      orderItem.save((err) => {
+        if (err) {
+          return next(err);
+        }
+        res.redirect("/cart")
+      });
+      
+    })
+});
+
 // SHOPPING CART ROUTES
 
 router.get('/cart', (req,res,next)=>{
@@ -70,11 +101,11 @@ router.get('/cart', (req,res,next)=>{
       res.end("404 - error orderitems");
     } else {
 
-
       res.render('shopping_cart', {title: "Shopping Cart", orderitems:orderitems})
     }
   })
 })
+
 router.post('/cart', (req,res,next)=>{
   const query = {order_by : "6389535a05d2a7b8d29eb5f9"}
   const cursor = ShoppingCart.find(query, (error, orderitems)=> {
@@ -86,6 +117,8 @@ router.post('/cart', (req,res,next)=>{
     }
   })
 })
+
+
 
 // ORDER ROUTES
 

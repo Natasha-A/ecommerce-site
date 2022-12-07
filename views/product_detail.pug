@@ -34,37 +34,38 @@ block content
           span.glyphicon.glyphicon-chevron-right
             span.sr-only Next
     
-    .proddetails-container
-      .category #{product.category}
-      .product-header
-        h1 #{product.name}
-        .price $#{product.price}
-      .description 
-        p #{product.name} to add to your daily wear.
+    form(method='POST' action='')
+      .proddetails-container
+        .category #{product.category}
+        .product-header
+          h1 #{product.name}
+          .price $#{product.price}
+        .description 
+          p #{product.name} essential for your daily wear.
 
-      .option-sidebyside
-        .options
-          label(for='color') Color:
-          select#color.color-option(type='select' name='color' required='true')
-            each color in product.color
-              option(value=color) #{color}
-                  
-        .options
-          label(for='size') Size:
-          select#size.size-option(type='select' name='size' required='true')
-            each size in product.size
-              option(value=size) #{size}
+        .option-sidebyside
+          .options
+            label(for='color') Color:
+            select#color.color-option(type='select' name='color' required='true')
+              each color in product.color
+                option(value=color) #{color}
+                    
+          .options
+            label(for='size') Size:
+            select#size.size-option(type='select' name='size' required='true')
+              each size in product.size
+                option(value=size) #{size}
+          
+        -var n = 1;
+        label(for='quantity') Quantity:
+        .option-sidebyside
+          select#quantity.quantity-option(type='select' name='quantity' required='true')
+            while n < 11
+              option(value=n) #{n}
+              - ++n 
+        .button-container
+          button.button(type='submit') Add to Cart
         
-      -var n = 1;
-      label(for='quantity') Quantity:
-      .option-sidebyside
-        select#quantity.quantity-option(type='select' name='quantity' required='true')
-          while n < 11
-            option(value=n) #{n}
-            - ++n 
-      .button-container
-        button.button(type='submit') Add to Cart
-      
           
 
 
