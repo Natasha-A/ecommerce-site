@@ -82,6 +82,7 @@ router.post('/cart', (req,res,next)=>{
       res.end("404 - error order");
     } else {
       let order = {}
+      let Jiwon = "UPDATE";
     }
   })
 })
