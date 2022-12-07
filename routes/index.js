@@ -65,6 +65,7 @@ router.get('/product/:id', function(req,res) {
   });
 });
 
+
 // POST request for Product (Add to ShoppingCart)
 router.post('/product/:id', function(req,res) {
     Product.findById(req.params.id, (errors,product) => {
@@ -80,14 +81,39 @@ router.post('/product/:id', function(req,res) {
         product_image: product.image[0], 
         price_per_unit:product.price
       })
-      console.log("ORDER ITEM: " + orderItem)    
+      // console.log("ORDER ITEM: " + orderItem)    
 
-      orderItem.save((err) => {
-        if (err) {
-          return next(err);
+       // findby {order by} --> find shopping cart, 
+      ShoppingCart.find({order_by : TEST_USER_ID}, (error, orderitems) => {
+        if (error) {
+          // new order item
+          orderItem.save((error)=>{
+            if (error) {
+              res.send("error");
+            } else {
+              res.redirect("/");
+            }
+          })
+        } else {
+          // check duplicates
+          console.log("CHECK DUPLICATE")
+          
+          orderitems.map(oi => {
+            if (orderItem.product_id == oi.product_id) {
+              if (orderItem.size == oi.size && orderItem.color == oi.color) {
+                oi.quantity += orderItem.quantity;
+                ShoppingCart.updateOne({_id : oi._id}, oi, (error)=>{
+                  if (error) {
+                    res.end("shopping cart update error");
+                  } else {
+                    res.redirect('/');
+                  }
+                })
+              }
+            } 
+          })
         }
-        res.redirect("/cart")
-      });
+      })
       
     })
 });
