@@ -61,6 +61,18 @@ router.get('/product/:id', function(req,res) {
     }
   });
 });
+// PRODUCT DETAIL ROUTES
+
+router.post('/product/:id', (req,res)=>{
+  let id = req.params.id;
+  // shopping cart save.
+  // findby {order by} --> find shopping cart, 
+  // check if product id is duplicate,
+  // if duplicate --> quantity ++  else --> save()
+})
+
+
+
 // SHOPPING CART ROUTES
 
 router.get('/cart', (req,res,next)=>{
@@ -81,8 +93,8 @@ router.post('/cart', (req,res,next)=>{
     if (error){
       res.end("404 - error order");
     } else {
-      let order = {}
-      let Jiwon = "UPDATE";
+      let cart = {}
+      
     }
   })
 })
