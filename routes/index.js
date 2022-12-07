@@ -67,7 +67,7 @@ router.get('/product/:id', function(req,res) {
 
 
 // POST request for Product (Add to ShoppingCart)
-router.post('/product/:id', function(req,res) {
+router.post('/product/:id', (req,res) => {
     Product.findById(req.params.id, (errors,product) => {
       
       const orderItem = new ShoppingCart({
@@ -89,7 +89,7 @@ router.post('/product/:id', function(req,res) {
           // new order item
           orderItem.save((error)=>{
             if (error) {
-              res.send("error");
+              res.end("error");
             } else {
               res.redirect("/");
             }
@@ -97,7 +97,7 @@ router.post('/product/:id', function(req,res) {
         } else {
           // check duplicates
           console.log("CHECK DUPLICATE")
-          
+          let check = 0;
           orderitems.map(oi => {
             if (orderItem.product_id == oi.product_id) {
               if (orderItem.size == oi.size && orderItem.color == oi.color) {
@@ -110,8 +110,21 @@ router.post('/product/:id', function(req,res) {
                   }
                 })
               }
-            } 
+            }
+            check ++; 
+            if (check == orderitems.length){
+              orderItem.save((error)=>{
+                if (error) {
+                  res.end("error during duplicate while creating new order item");
+                } else {
+                  res.redirect('/');
+                }
+              })
+            }
           })
+      
+
+
         }
       })
       
