@@ -3,6 +3,7 @@ var router = express.Router();
 const mongoose = require("mongoose");
 const Product = require("../schemas/products");
 const ShoppingCart = require("../schemas/shoppingCart");
+const Order = require("../schemas/orders");
 
 const TEST_USER_ID = "6389535a05d2a7b8d29eb5f9"
 
@@ -56,7 +57,7 @@ router.get('/product/:id', function(req,res) {
   var id = req.params.id;
   Product.findById(id, (error, product) => {
     if (error) {
-      res.end("404 - No this product");
+      res.end("404 - No this product line 60");
     }
     else {
       console.log(product)
@@ -86,59 +87,106 @@ router.post('/product/:id', (req,res) => {
        // findby {order by} --> find shopping cart, 
       ShoppingCart.find({order_by : TEST_USER_ID}, (error, orderitems) => {
         if (error) {
-          // new order item
-          orderItem.save((error)=>{
-            if (error) {
-              res.end("error");
-            } else {
-              res.redirect("/");
-            }
-          })
+          res.end("ERROR line 80-100 during finding orderitems of user")
+          
         } else {
-          // check duplicates
-          console.log("CHECK DUPLICATE")
-          let check = 0;
-          orderitems.map(oi => {
-            if (orderItem.product_id == oi.product_id) {
-              if (orderItem.size == oi.size && orderItem.color == oi.color) {
-                oi.quantity += orderItem.quantity;
-                ShoppingCart.updateOne({_id : oi._id}, oi, (error)=>{
-                  if (error) {
-                    res.end("shopping cart update error");
-                  } else {
-                    res.redirect('/');
-                  }
-                })
+          if (orderitems.length == 0) {
+            orderItem.save((error)=>{
+              if (error) {
+                res.end("save order item Line 100~120");
+              } else {
+                res.redirect('/');
               }
-            }
-            check ++; 
-            if (check == orderitems.length){
+            })
+          } else {
+             // check duplicates
+            console.log("CHECK DUPLICATE");
+            // let check = 0;
+            let flag = false;
+            new Promise((resolve, reject)=>{
+              let check = 0;
+
+              orderitems.map(oi => {
+                if (orderItem.product_id == oi.product_id) {
+                  if (orderItem.size == oi.size && orderItem.color == oi.color) {
+                    oi.quantity += orderItem.quantity;
+                    ShoppingCart.updateOne({_id : oi._id}, oi, (error)=>{
+                      if (error) {
+                        res.end("shopping cart update error line 108");
+                      } else {
+                        flag = true;
+                        resolve(flag);
+                      }
+                    })
+                    
+                  }
+                } 
+                check ++;
+                if (check == orderitems.length) {
+                  reject(flag);
+                }
+              })
+              
+              
+            }).then(()=>{
+              res.redirect('/');
+            }).catch(()=>{
               orderItem.save((error)=>{
                 if (error) {
-                  res.end("error during duplicate while creating new order item");
+                  res.end("save order item Line 100~120");
                 } else {
                   res.redirect('/');
                 }
               })
-            }
-          })
-      
-
-
+            })
+          }
         }
+
       })
       
     })
 });
+// USER ORDERITEM DELETE
+router.get('/orderitem/delete/:id', (req,res)=>{
+  let id = req.params.id;
+  ShoppingCart.deleteOne({_id : id}, (error)=>{
+    if (error) {
+      res.send("ERROR in deleting order item")
+    } else {
+      res.redirect('/cart');
+    }
+  })
+  
+})
+// USER ORDERITEM EDIT
+// router.get('/orderitem/edit/:id',(req,res)=>{
+//   let id = req.params.id;
+//   ShoppingCart.find({_id : id}, (error,orderitem) => {
+//     if (error) {
+//       res.send("ERROR in EDITING orderitem for user");
+//     } else {
+//       Product.findById(orderitem.product_id, (error, product)=>{
+//         if (error) {
+//           res.send("ERROR in EDITING orderitem for user");
+//         } else {
+//           res.render('product_detail', { title:'Product Details', product: product });
+//         }
+//       })
+
+     
+//     }
+//   })
+
+// })
 
 
 // SHOPPING CART ROUTES
 
 router.get('/cart', (req,res,next)=>{
-  const query = {order_by : "6389535a05d2a7b8d29eb5f9"}
-  const cursor = ShoppingCart.find(query, (error, orderitems)=> {
+  const query = {order_by : TEST_USER_ID}
+  ShoppingCart.find(query, (error, orderitems)=> {
     if (error) {
-      res.end("404 - error orderitems");
+      res.end("404 - error orderitems Line 142");
     } else {
 
       res.render('shopping_cart', {title: "Shopping Cart", orderitems:orderitems})
@@ -147,13 +195,38 @@ router.get('/cart', (req,res,next)=>{
 })
 
 router.post('/cart', (req,res,next)=>{
-  const query = {order_by : "6389535a05d2a7b8d29eb5f9"}
-  const cursor = ShoppingCart.find(query, (error, orderitems)=> {
+  const query = {order_by : TEST_USER_ID}
+  ShoppingCart.find(query, (error, orderitems)=> {
     if (error){
-      res.end("404 - error order");
+      res.end("404 - error cannot find order Line 154");
     } else {
-      let cart = {}
-      
+      if (orderitems.length == 0) {
+        res.end("no items");
+      } else {
+        console.log(orderitems);
+        const order = new Order({
+          order_by : TEST_USER_ID,
+          order_items : orderitems,
+          order_date : new Date()
+        });
+        order.save((error)=>{
+          if (error) {
+            res.end("ERROR - order has not saved Line 164");
+          } else {
+            ShoppingCart.deleteMany({order_by : TEST_USER_ID}, (error)=>{
+              if (error) {
+                res.end("ERROR - cannot delete order items Line 168")
+              } else {
+                res.redirect('/');
+                
+              }
+            })
+          }
+        })
+      }
+
+
+     
     }
   })
 })

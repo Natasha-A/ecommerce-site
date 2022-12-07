@@ -6,11 +6,11 @@ order_by:{
     required : true,
 },
 order_items:{
-    type: [{String}],
+    type: [{}],
     required : true,
 },
 order_date:{
-    type: date,
+    type: Date,
     required : true,
 },
 });
