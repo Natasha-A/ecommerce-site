@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 let shoppingCartSchema = mongoose.Schema({
 product_id:{
-    type: Number,
+    type: String,
     required : true,
 },
 product_name:{
