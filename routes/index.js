@@ -92,6 +92,7 @@ router.post('/product/:id', function(req,res) {
     })
 });
 
+
 // SHOPPING CART ROUTES
 
 router.get('/cart', (req,res,next)=>{
@@ -112,8 +113,8 @@ router.post('/cart', (req,res,next)=>{
     if (error){
       res.end("404 - error order");
     } else {
-      let order = {}
-      let Jiwon = "UPDATE";
+      let cart = {}
+      
     }
   })
 })
