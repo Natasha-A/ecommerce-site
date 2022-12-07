@@ -1,4 +1,9 @@
-block content
+extends layout
+
+block append head 
+  link(rel='stylesheet', href='/stylesheets/homepage.css')
+  
+block content    
   h1= title
   p Welcome to #{title}
     div id:#{product.id}
