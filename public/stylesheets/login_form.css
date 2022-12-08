@@ -20,29 +20,31 @@ h1 {
 }
 
 .main-container {
+  background: #E8F5F3;
   display: flex;
   flex-direction: row;
-  margin-top: 30px;
-  margin-left:10vh;
-  margin-right:10vh;
-  
+  margin-top: 0px;
+  justify-content: center;
+
 }
 
 .login-container {
-    margin-top: 115px;
-    height: 558px;
-    width: 623px;
-    background: #FFFFFF;
-    border: 2px solid #E6E6E6;
-    box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.15);
-    border-radius: 50px;
+  flex: 4;
+  flex-direction: row;
+  margin-left:10vh;
+  margin-top: 115px;
+  height: 558px;
+  max-width: 623px;
+  background: #FFFFFF;
+  border: 2px solid #E6E6E6;
+  box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 50px;
     
 }
 
 
 .picture-container{
-    display: flex;
-    flex-direction: row;
+    box-sizing: border-box;
     width: 842px;
     height: 972px;
     margin-left:50px;
@@ -62,8 +64,15 @@ h1 {
 }
 
 .input-control{
+  display: flex;
+  margin: 20px 0px;
+  flex-wrap: true;
+  justify-content: stretch;
+  align-items: stretch;
+  flex-direction: row;
     margin-top: 10px;
     margin-left: 50px;
+    margin-right: 50px;
     box-sizing: border-box;
     width: 522px;
     height: 62px;
@@ -82,11 +91,11 @@ h1 {
   
   .button {
     padding:20px 20px;
+    color:white;
     background:#67D6B4;
     font-weight: 600;
     font-size: 18px;
     border-style: none;
-    color:white;
     width: 60%;
     height: 62px;
     border-radius: 15px;
