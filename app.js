@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require("mongoose");
 
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -14,7 +15,6 @@ mongoose.connect("mongodb+srv://ecommerce-site:ecommerce@cluster0.k9yvipi.mongod
 let dbconnection = mongoose.connection;
 dbconnection.once("open", () => { console.log("Connected to mongodb") });
 dbconnection.on("error", () => { console.log("Failed to execute db command") });
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
