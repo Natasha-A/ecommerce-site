@@ -20,14 +20,18 @@ div.navbar
     div.navbar__account-info
       if user
         div.navbar__account-user
-          div.fa-solid.fa-circle-user
           div.navbar__account-item
-            span.navbar__user #{user.name} 
+            .navbar__account-header
+              div.fa-solid.fa-circle-user
+              span.navbar__user #{user.name} 
+              a.checkout-button(href="/cart")
+                .fa-solid.fa-cart-shopping
             div.navbar__user-buttons
               //- a(href="/users/info")
               button View Account
               a(href="/users/logout") 
                 button Logout 
+
 
       else
         div.navbar__user-buttons

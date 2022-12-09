@@ -81,8 +81,9 @@ a:hover {
 
 
 .navbar__account {
-  border-left:1px solid rgb(190, 190, 190);
-  margin: 0px 30px;
+  border-left:2px solid #c6c6c6;
+  margin: 10px 30px;
+  padding-left: 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -93,6 +94,7 @@ a:hover {
   display: flex;
   gap:20px;
 }
+
 
 .navbar__account .fa-solid.fa-circle-user {
   font-size: 50px;
@@ -120,24 +122,63 @@ a:hover {
 }
 
 
+
 .navbar__user-buttons button:nth-child(1) {
   color:black;
   background-color: transparent;
 }
 
+.navbar__account-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fa-solid.fa-cart-shopping {
+  font-size: 25px;
+}
+
+
+.navbar__account-header > {
+  flex:1;
+  flex-direction: row;
+}
+
+.checkout-button {
+  background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+  background-color: #f6f6f6;
+  padding:10px 10px;
+  font-weight: 600;
+  border-radius: 30px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 15px;
+  border:1px solid rgb(251, 251, 251);
+
+}
+
 
 
 .navbar__account-user {
-  margin-left: 20px;
   display: flex;
   flex-direction: row;
   gap:10px;
+  
 }
 
 .navbar__user {
   font-size:18px;
   font-weight: 700;
   padding-left:10px;
+  justify-self: flex-start;
+  align-self: center;
+  flex-direction: column;
+  width:90px;
 
 }
 
