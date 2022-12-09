@@ -21,6 +21,7 @@ textarea:focus, input:focus{
   align-items: center;
   gap: 30px;
   margin-left: 20px;
+  margin-bottom: 0px;
 }
 
 .navbar {

@@ -79,7 +79,7 @@ router.post('/product/:id', (req,res) => {
         quantity: req.body.quantity, 
         order_by:TEST_USER_ID, 
         order_confirm:false,
-        product_image: product.image[0], 
+        product_img: product.image[0], 
         price_per_unit:product.price
       })
       // console.log("ORDER ITEM: " + orderItem)    
@@ -189,7 +189,7 @@ router.get('/cart', (req,res,next)=>{
       res.end("404 - error orderitems Line 142");
     } else {
 
-      res.render('shopping_cart', {title: "Shopping Cart", orderitems:orderitems})
+      res.render('shopping_cart', {title: "Order Summary", orderitems:orderitems})
     }
   })
 })

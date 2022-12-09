@@ -1,19 +1,54 @@
-block content
-  h1= title
-  p Welcome to #{title}
+extends layout
 
-  form(method="POST", action="/cart")
-    each orderitem in orderitems 
-        div id:#{orderitem.product_id}
-        div name:#{orderitem.product_name}
-        div size: #{orderitem.size}
-        div color : #{orderitem.color}
-        div quantity : #{orderitem.quantity}
-        div order_confirm : #{orderitem.order_confirm}
-        div product_img : #{orderitem.product_img}
-        div price_per_unit: #{orderitem.price_per_unit}
-        a(href="/orderitem/delete/" + orderitem._id,class='btn btn-danger') Delete
-        a(href="/orderitem/edit/" + orderitem._id,class='btn btn-primary') Edit
-    input(type="submit", value="proceed to checkout")
+block append head 
+  link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css")
+  script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js")
+  script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js")
+  link(rel='stylesheet' href='/stylesheets/shopping_cart.css')
+  link(rel='stylesheet' href='/stylesheets/main.css')
+
+block content
+  .main-container
+    .summary-container 
+      h3= title
+      .summary-section 
+        each orderitem, index in orderitems 
+          if index == 0
+            .orderitem-container
+              .orderitem-section
+                image.orderitem-image(src=orderitem.product_img[0])
+                .orderitem-info
+                  .orderitem__header
+                    div.orderitem__title #{orderitem.product_name}
+                    div.orderitem__price $#{orderitem.price_per_unit}
+                  .orderitem__selections
+                    div.size Size: 
+                      span #{orderitem.size}
+                    div Color : #{orderitem.color}
+                    div Quantity : #{orderitem.quantity}
+                    div 
+                  a(href="/orderitem/delete/" + orderitem._id,class='btn btn-danger') Delete
+                  a(href="/orderitem/edit/" + orderitem._id,class='btn btn-primary') Edit
+          else
+            break
+
+    .paymentdetails-container 
+      h3 Payment Details
+      form(method="POST", action="/cart")
+        input(type="submit", value="proceed to checkout")
+
+  //- form(method="POST", action="/cart")
+  //-   each orderitem in orderitems 
+  //-       div id:#{orderitem.product_id}
+  //-       div name:#{orderitem.product_name}
+  //-       div size: #{orderitem.size}
+  //-       div color : #{orderitem.color}
+  //-       div quantity : #{orderitem.quantity}
+  //-       div order_confirm : #{orderitem.order_confirm}
+  //-       div product_img : #{orderitem.product_img}
+  //-       div price_per_unit: #{orderitem.price_per_unit}
+  //-       a(href="/orderitem/delete/" + orderitem._id,class='btn btn-danger') Delete
+  //-       a(href="/orderitem/edit/" + orderitem._id,class='btn btn-primary') Edit
+  //-   input(type="submit", value="proceed to checkout")
     
       
