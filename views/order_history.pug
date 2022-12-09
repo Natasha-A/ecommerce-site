@@ -1,0 +1,13 @@
+block content
+    h1=title
+    p Welcome to #{title}
+    
+    each order in orders
+        div #{order.order_date}
+        each orderitem in order.order_items
+            div name:#{orderitem.product_name}
+            div size: #{orderitem.size}
+            div color : #{orderitem.color}
+            div quantity : #{orderitem.quantity}
+            div product_img : #{orderitem.product_img}
+            div price_per_unit: #{orderitem.price_per_unit}  

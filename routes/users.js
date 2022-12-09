@@ -5,6 +5,18 @@ const mongoose = require("mongoose");
 const bcryptjs = require("bcryptjs");
 const User = require("../schemas/users");
 const passport = require("passport");
+const Order = require("../schemas/orders");
+
+
+
+const isLoggedIn = (req, res, next)=> {
+  if (!req.isAuthenticated()) {
+      res.redirect("/users/login");
+  }
+  else {
+      next();
+  }
+}
 
 
 // GET Register form  
@@ -68,7 +80,7 @@ router.route('/register').get((req, res, next) => {
 // GET Login form 
 // POST Login form 
 router.route('/login').get(function (req, res, next) {
-  res.render('login_form', {title: 'Not implemented: GET Login Form'});
+  res.render('login_form');
 }).post(async (req, res, next) => {
   await check("email", "Email is required").notEmpty().run(req);
   await check("email", "Email is invalid").isEmail().run(req);
@@ -94,6 +106,24 @@ router.route('/logout').get(function (req, res, next) {
     }
     res.redirect("/users/login");
   })
+})
+
+// ORDER History
+router.get('/order', isLoggedIn, (req,res)=> {
+
+  User.findById(req.user.id, (error, user)=>{
+    if (error) {
+      res.send("User not found");
+    } else {
+      Order.find({order_by : req.user.id}, (error, orders)=> {
+        if (error) {
+          res.send("ERROR : order not found")
+        } else {
+          res.render('order_history', {title : "order history", orders : orders, user : user})
+        }
+      })
+    }
+  })  
 })
 
 module.exports = router;

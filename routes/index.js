@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const Product = require("../schemas/products");
 const ShoppingCart = require("../schemas/shoppingCart");
 const Order = require("../schemas/orders");
+const moment = require('moment-timezone');
+
 
 
 
@@ -180,11 +182,12 @@ router.post('/cart',isLoggedIn, (req,res,next)=>{
       if (orderitems.length == 0) {
         res.end("no items");
       } else {
-        console.log(orderitems);
+       
+
         const order = new Order({
           order_by : req.user.id,
           order_items : orderitems,
-          order_date : new Date()
+          order_date : moment().tz("America/Toronto").format('h:mma MMMM Do, YYYY')
         });
         order.save((error)=>{
           if (error) {
@@ -194,7 +197,7 @@ router.post('/cart',isLoggedIn, (req,res,next)=>{
               if (error) {
                 res.end("ERROR - cannot delete order items Line 168")
               } else {
-                res.redirect('/order');
+                res.redirect('/');
                 
               }
             })
@@ -205,16 +208,7 @@ router.post('/cart',isLoggedIn, (req,res,next)=>{
   })
 })
 
-// ORDER History
-router.get('/order', isLoggedIn, (req,res)=> {
-  Order.find({order_by : req.user.id}, (error, orders)=> {
-    if (error) {
-      res.send("ERROR : order not found")
-    } else {
-      res.render('order_history', {title : "order history", orders : orders})
-    }
-  })
-})
+
 
 
 
