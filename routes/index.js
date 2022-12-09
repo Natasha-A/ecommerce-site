@@ -5,7 +5,16 @@ const Product = require("../schemas/products");
 const ShoppingCart = require("../schemas/shoppingCart");
 const Order = require("../schemas/orders");
 
-const TEST_USER_ID = "6389535a05d2a7b8d29eb5f9"
+
+
+const isLoggedIn = (req, res, next)=> {
+  if (!req.isAuthenticated()) {
+      res.redirect("/users/login");
+  }
+  else {
+      next();
+  }
+}
 
 
 // GET site home page.
@@ -60,7 +69,7 @@ router.get('/product/:id', function(req,res) {
       res.end("404 - No this product line 60");
     }
     else {
-      console.log(product)
+      
       res.render('product_detail', { title:'Product Details', product: product, url : "/product/" + product._id });
     }
   });
@@ -68,41 +77,39 @@ router.get('/product/:id', function(req,res) {
 
 
 // POST request for Product (Add to ShoppingCart)
-router.post('/product/:id', (req,res) => {
-  Product.findById(req.params.id, (errors,product) => {
-    const orderItem = new ShoppingCart({
-      product_id: req.params.id, 
-      product_name: product.name, 
-      size: req.body.size,
-      color: req.body.color,
-      quantity: req.body.quantity, 
-      order_by:TEST_USER_ID, 
-      order_confirm:false,
-      product_image: product.image[0], 
-      price_per_unit:product.price
-    })
-    ShoppingCart.find({product_id : req.params.id, order_by : TEST_USER_ID, color : orderItem.color, size : orderItem.size}, (error, oi)=>{
-      if (error) {
-        res.send("error");
-      } else {
-        if (oi.length == 0) {
-          orderItem.save((error)=>{
-            res.redirect('/');
-          })
+router.post('/product/:id',isLoggedIn, (req,res) => {
+    Product.findById(req.params.id, (errors,product) => {
+      const orderItem = new ShoppingCart({
+        product_id: req.params.id, 
+        product_name: product.name, 
+        size: req.body.size,
+        color: req.body.color,
+        quantity: req.body.quantity, 
+        order_by: req.user.id, 
+        order_confirm:false,
+        product_image: product.image[0], 
+        price_per_unit:product.price
+      })
+      ShoppingCart.find({product_id : req.params.id, order_by : req.user.id, color : orderItem.color, size : orderItem.size}, (error, oi)=>{
+        if (error) {
+          res.send("error");
         } else {
-          oi[0].quantity += orderItem.quantity;
-          ShoppingCart.updateOne({_id : oi[0]._id}, oi[0], (error)=>{
-            res.redirect('/');
-          } )
+          if (oi.length == 0) {
+            orderItem.save((error)=>{
+              res.redirect('/');
+            })
+          } else {
+            oi[0].quantity += orderItem.quantity;
+            ShoppingCart.updateOne({_id : oi[0]._id}, oi[0], (error)=>{
+              res.redirect('/');
+            } )
+          }
         }
-      }
-    })
-
-
-  })  
+      })
+    })  
 });
 // USER ORDERITEM DELETE
-router.get('/orderitem/delete/:id', (req,res)=>{
+router.get('/orderitem/delete/:id',isLoggedIn, (req,res)=>{
   let id = req.params.id;
   ShoppingCart.deleteOne({_id : id}, (error)=>{
     if (error) {
@@ -114,7 +121,7 @@ router.get('/orderitem/delete/:id', (req,res)=>{
   
 })
 // USER ORDERITEM EDIT
-router.get('/orderitem/edit/:id',(req,res)=>{
+router.get('/orderitem/edit/:id',isLoggedIn,(req,res)=>{
   let id = req.params.id;
   ShoppingCart.findById(id, (error,orderitem) => {
     if (error) {
@@ -131,7 +138,7 @@ router.get('/orderitem/edit/:id',(req,res)=>{
     }
   })
 })
-router.post('/orderitem/edit/:id',(req,res)=> {
+router.post('/orderitem/edit/:id',isLoggedIn,(req,res)=> {
 
   ShoppingCart.findById(req.params.id, (error, orderItem)=>{
     if (error) {
@@ -140,7 +147,7 @@ router.post('/orderitem/edit/:id',(req,res)=> {
       orderItem.size = req.body.size;
       orderItem.color = req.body.color;
       orderItem.quantity = req.body.quantity;
-      if (orderItem.order_by != TEST_USER_ID) {
+      if (orderItem.order_by != req.user.id) {
         res.redirect('/users/login');
       }
       ShoppingCart.updateOne({_id: req.params.id}, orderItem, (error)=>{
@@ -153,21 +160,20 @@ router.post('/orderitem/edit/:id',(req,res)=> {
 
 // SHOPPING CART ROUTES
 
-router.get('/cart', (req,res,next)=>{
-  const query = {order_by : TEST_USER_ID}
-  ShoppingCart.find(query, (error, orderitems)=> {
+router.get('/cart',isLoggedIn, (req,res,next)=>{
+  ShoppingCart.find({order_by : req.user.id}, (error, orderitems)=> {
     if (error) {
       res.end("404 - error orderitems Line 142");
     } else {
-
-      res.render('shopping_cart', {title: "Shopping Cart", orderitems:orderitems})
+      res.render('order_summary', {title: "Order Summary", orderitems:orderitems})
     }
   })
 })
 
-router.post('/cart', (req,res,next)=>{
-  const query = {order_by : TEST_USER_ID}
-  ShoppingCart.find(query, (error, orderitems)=> {
+router.post('/cart',isLoggedIn, (req,res,next)=>{
+
+  // address --> order , user
+  ShoppingCart.find({order_by : req.user.id}, (error, orderitems)=> {
     if (error){
       res.end("404 - error cannot find order Line 154");
     } else {
@@ -176,7 +182,7 @@ router.post('/cart', (req,res,next)=>{
       } else {
         console.log(orderitems);
         const order = new Order({
-          order_by : TEST_USER_ID,
+          order_by : req.user.id,
           order_items : orderitems,
           order_date : new Date()
         });
@@ -184,11 +190,11 @@ router.post('/cart', (req,res,next)=>{
           if (error) {
             res.end("ERROR - order has not saved Line 164");
           } else {
-            ShoppingCart.deleteMany({order_by : TEST_USER_ID}, (error)=>{
+            ShoppingCart.deleteMany({order_by : req.user.id}, (error)=>{
               if (error) {
                 res.end("ERROR - cannot delete order items Line 168")
               } else {
-                res.redirect('/');
+                res.redirect('/order');
                 
               }
             })
@@ -199,9 +205,18 @@ router.post('/cart', (req,res,next)=>{
   })
 })
 
+// ORDER History
+router.get('/order', isLoggedIn, (req,res)=> {
+  Order.find({order_by : req.user.id}, (error, orders)=> {
+    if (error) {
+      res.send("ERROR : order not found")
+    } else {
+      res.render('order_history', {title : "order history", orders : orders})
+    }
+  })
+})
 
 
-// ORDER ROUTES
 
 // GET request for Order details
 router.get('/order/:id', function(req, res, next) {
