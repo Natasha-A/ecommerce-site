@@ -17,7 +17,7 @@ block content
                each error in errors
                   p(style="color:red") #{error.msg}
 
-            form(method="POST", action="/register")
+            form(method="POST", action="/users/register")
             
                div.label-control(for="name") Enter Name:
                input#name.input-control(name="name", type="text")
