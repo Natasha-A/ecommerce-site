@@ -9,13 +9,15 @@ div.navbar
       a(href='/') Shoes 
     
   div.navbar__search 
-    div.fa-solid.fa-magnifying-glass
-    input(
-      type='text'
-      name='search'
-      placeholder='Search'
-    )
-  
+    form(action="/search" method='POST')
+      a(href="/")
+        button.fa-solid.fa-magnifying-glass(type='submit')
+      input(
+        type='text'
+        name='search'
+        placeholder='Search'
+      )
+
   div.navbar__account
     div.navbar__account-info
       if user
