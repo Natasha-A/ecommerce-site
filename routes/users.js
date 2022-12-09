@@ -34,7 +34,7 @@ router.route('/register').get((req, res, next) => {
               console.log(JSON.stringify(error));
             }
             else {
-              res.redirect("/login");
+              res.redirect("/users/login");
             }
           })
         }
@@ -58,7 +58,7 @@ router.route('/login').get(function (req, res, next) {
   if (errors.isEmpty()) {
     passport.authenticate("local", {
       successRedirect: "/",
-      failureRedirect: "/login",
+      failureRedirect: "/users/login",
       failureMessage: true
     })(req, res, next);
   }
@@ -73,7 +73,7 @@ router.route('/logout').get(function (req, res, next) {
     if (error){
       return next(error);
     }
-    res.redirect("/login");
+    res.redirect("/users/login");
   })
 })
 
