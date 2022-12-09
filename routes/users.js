@@ -20,6 +20,7 @@ router.route('/register').get((req, res, next) => {
   await check("password", "Passwords do not match").equals(req.body.passwordConfirm).run(req);
   var errors = validationResult(req);
   if (errors.isEmpty()) {
+
     // prevent duplicate emails
     User.find({email : req.body.email}, (error, users)=>{
       if (error) {
