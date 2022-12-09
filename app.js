@@ -42,7 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Router setup
 app.get("*", (req, res, next) => {
-  console.log(req.user);
+  // console.log(req.user);
   res.locals.user = req.user || null;
   next();
 });

@@ -29,7 +29,7 @@ router.route('/register').get((req, res, next) => {
         if (users.length != 0) {    
           // how do we handle errors?
           // by arrays?
-          console.log(errors);
+          // console.log(errors);
           errors = [{value: '', msg: 'Email is duplicated', param : 'email', location:'body'}]
           res.render('register_form', { title: 'ShopX | Register User', errors: errors});
         } else {

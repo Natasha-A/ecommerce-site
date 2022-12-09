@@ -13,6 +13,10 @@ order_date:{
     type: Date,
     required : true,
 },
+billing_address:{
+    type: [{}],
+    required : false
+}
 });
 
 module.exports = mongoose.model("Orders", orderSchema);
