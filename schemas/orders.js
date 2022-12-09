@@ -14,7 +14,7 @@ order_date:{
     required : true,
 },
 billing_address:{
-    type: [{}],
+    type: {},
     required : false
 }
 });
