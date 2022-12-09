@@ -1,7 +1,12 @@
 block content
     h1=title
     p Welcome to #{title}
-    
+    h2 Account Details
+    //- div Type : #{user.type}
+    div Name : #{user.name}
+    div Email : #{user.email}
+    //- #{user.phoneNumber}
+    br
     each order in orders
         div #{order.order_date}
         each orderitem in order.order_items

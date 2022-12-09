@@ -109,7 +109,7 @@ router.route('/logout').get(function (req, res, next) {
 })
 
 // ORDER History
-router.get('/order', isLoggedIn, (req,res)=> {
+router.get('/orders', isLoggedIn, (req,res)=> {
 
   User.findById(req.user.id, (error, user)=>{
     if (error) {
