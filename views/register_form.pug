@@ -9,7 +9,6 @@ block append head
 
 
 block content
-
    div.main-container
       .register-container
             h1 Sign Up
@@ -17,7 +16,7 @@ block content
                each error in errors
                   p(style="color:red") #{error.msg}
 
-            form(method="POST", action="/register")
+            form(method="POST", action="/users/register")
             
                div.label-control(for="name") Enter Name:
                input#name.input-control(name="name", type="text")
@@ -55,4 +54,4 @@ block content
 //-     #form-group-submit.form-group
 //-        input.btn.btn-primary.input-control(type="submit")
 
-       
+

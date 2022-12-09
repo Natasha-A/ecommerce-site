@@ -4,17 +4,31 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require("mongoose");
-
+const session = require("express-session");
+const dataBaseConfig = require("./config/database");
+const passport = require("passport");
+require("./config/passport")(passport);
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
 
-mongoose.connect("mongodb+srv://ecommerce-site:ecommerce@cluster0.k9yvipi.mongodb.net/ecommerce")
+mongoose.connect(dataBaseConfig.connectionString)
 let dbconnection = mongoose.connection;
 dbconnection.once("open", () => { console.log("Connected to mongodb") });
 dbconnection.on("error", () => { console.log("Failed to execute db command") });
+
+//Session setup
+app.use(session({
+  secret: "sdaopfiuasdoifu",
+  resave: false,
+  saveUninitialized: false,
+  cookie: {}
+})); 
+//Passport setup
+app.use(passport.initialize());
+app.use(passport.session());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,6 +39,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Router setup
+app.get("*", (req, res, next) => {
+  // console.log(req.user);
+  res.locals.user = req.user || null;
+  next();
+});
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

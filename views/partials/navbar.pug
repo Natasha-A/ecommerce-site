@@ -22,10 +22,12 @@ div.navbar
         div.navbar__account-user
           div.fa-solid.fa-circle-user
           div.navbar__account-item
-            span.navbar__user Jeremy Woods 
+            span.navbar__user #{user.name} 
             div.navbar__user-buttons
-              button View Account 
-              button Logout 
+              //- a(href="/users/info")
+              button View Account
+              a(href="/users/logout") 
+                button Logout 
 
       else
         div.navbar__user-buttons

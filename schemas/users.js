@@ -11,6 +11,10 @@ email:{
 password:{
     type: String,
     required : true,
+},
+billing_address:{
+    type: [{}],
+    required : false
 }
 });
 
