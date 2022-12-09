@@ -61,7 +61,7 @@ router.get('/product/:id', function(req,res) {
     }
     else {
       console.log(product)
-      res.render('product_detail', { title:'Product Details', product: product });
+      res.render('product_detail', { title:'Product Details', product: product, url : "/product/" + product._id });
     }
   });
 });
@@ -69,82 +69,37 @@ router.get('/product/:id', function(req,res) {
 
 // POST request for Product (Add to ShoppingCart)
 router.post('/product/:id', (req,res) => {
-    Product.findById(req.params.id, (errors,product) => {
-      
-      const orderItem = new ShoppingCart({
-        product_id: req.params.id, 
-        product_name: product.name, 
-        size: req.body.size,
-        color: req.body.color,
-        quantity: req.body.quantity, 
-        order_by:TEST_USER_ID, 
-        order_confirm:false,
-        product_image: product.image[0], 
-        price_per_unit:product.price
-      })
-      // console.log("ORDER ITEM: " + orderItem)    
-
-       // findby {order by} --> find shopping cart, 
-      ShoppingCart.find({order_by : TEST_USER_ID}, (error, orderitems) => {
-        if (error) {
-          res.end("ERROR line 80-100 during finding orderitems of user")
-          
-        } else {
-          if (orderitems.length == 0) {
-            orderItem.save((error)=>{
-              if (error) {
-                res.end("save order item Line 100~120");
-              } else {
-                res.redirect('/');
-              }
-            })
-          } else {
-             // check duplicates
-            console.log("CHECK DUPLICATE");
-            // let check = 0;
-            let flag = false;
-            new Promise((resolve, reject)=>{
-              let check = 0;
-
-              orderitems.map(oi => {
-                if (orderItem.product_id == oi.product_id) {
-                  if (orderItem.size == oi.size && orderItem.color == oi.color) {
-                    oi.quantity += orderItem.quantity;
-                    ShoppingCart.updateOne({_id : oi._id}, oi, (error)=>{
-                      if (error) {
-                        res.end("shopping cart update error line 108");
-                      } else {
-                        flag = true;
-                        resolve(flag);
-                      }
-                    })
-                    
-                  }
-                } 
-                check ++;
-                if (check == orderitems.length) {
-                  reject(flag);
-                }
-              })
-              
-              
-            }).then(()=>{
-              res.redirect('/');
-            }).catch(()=>{
-              orderItem.save((error)=>{
-                if (error) {
-                  res.end("save order item Line 100~120");
-                } else {
-                  res.redirect('/');
-                }
-              })
-            })
-          }
-        }
-
-      })
-      
+  Product.findById(req.params.id, (errors,product) => {
+    const orderItem = new ShoppingCart({
+      product_id: req.params.id, 
+      product_name: product.name, 
+      size: req.body.size,
+      color: req.body.color,
+      quantity: req.body.quantity, 
+      order_by:TEST_USER_ID, 
+      order_confirm:false,
+      product_image: product.image[0], 
+      price_per_unit:product.price
     })
+    ShoppingCart.find({product_id : req.params.id, order_by : TEST_USER_ID, color : orderItem.color, size : orderItem.size}, (error, oi)=>{
+      if (error) {
+        res.send("error");
+      } else {
+        if (oi.length == 0) {
+          orderItem.save((error)=>{
+            res.redirect('/');
+          })
+        } else {
+          oi[0].quantity += orderItem.quantity;
+          ShoppingCart.updateOne({_id : oi[0]._id}, oi[0], (error)=>{
+            res.redirect('/');
+          } )
+        }
+      }
+    })
+
+
+  })  
 });
 // USER ORDERITEM DELETE
 router.get('/orderitem/delete/:id', (req,res)=>{
@@ -159,25 +114,43 @@ router.get('/orderitem/delete/:id', (req,res)=>{
   
 })
 // USER ORDERITEM EDIT
-// router.get('/orderitem/edit/:id',(req,res)=>{
-//   let id = req.params.id;
-//   ShoppingCart.find({_id : id}, (error,orderitem) => {
-//     if (error) {
-//       res.send("ERROR in EDITING orderitem for user");
-//     } else {
-//       Product.findById(orderitem.product_id, (error, product)=>{
-//         if (error) {
-//           res.send("ERROR in EDITING orderitem for user");
-//         } else {
-//           res.render('product_detail', { title:'Product Details', product: product });
-//         }
-//       })
+router.get('/orderitem/edit/:id',(req,res)=>{
+  let id = req.params.id;
+  ShoppingCart.findById(id, (error,orderitem) => {
+    if (error) {
+      res.send("ERROR in EDITING orderitem for user");
+    } else {
+      console.log(orderitem);
+      Product.findById(orderitem.product_id, (error, product)=>{
+        
+        if (error) {
+          res.send("ERROR in EDITING orderitem for user");
+        } else {
+          res.render('product_detail', { title:'Product Details', product: product, url : "/orderitem/edit/" +  orderitem._id});
+        }
+      })
+    }
+  })
+})
+router.post('/orderitem/edit/:id',(req,res)=> {
+  console.log("HELLO");
 
-     
-//     }
-//   })
-
-// })
+  ShoppingCart.findById(req.params.id, (error, orderItem)=>{
+    if (error) {
+      res.send("orderitem not found -- editing");
+    } else {
+      orderItem.size = req.body.size;
+      orderItem.color = req.body.color;
+      orderItem.quantity = req.body.quantity;
+      if (orderItem.order_by != TEST_USER_ID) {
+        res.redirect('/users/login');
+      }
+      ShoppingCart.updateOne({_id: req.params.id}, orderItem, (error)=>{
+        res.redirect('/cart');
+      })
+    }
+  })
+})
 
 
 // SHOPPING CART ROUTES
