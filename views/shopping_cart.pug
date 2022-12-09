@@ -10,32 +10,35 @@ block append head
 block content
   .main-container
     .summary-container 
-      h3= title
+      h2= title
       .summary-section 
         each orderitem, index in orderitems 
-          if index == 0
-            .orderitem-container
-              .orderitem-section
-                image.orderitem-image(src=orderitem.product_img[0])
-                .orderitem-info
-                  .orderitem__header
-                    div.orderitem__title #{orderitem.product_name}
-                    div.orderitem__price $#{orderitem.price_per_unit}
-                  .orderitem__selections
-                    div.size Size: 
-                      span #{orderitem.size}
-                    div Color : #{orderitem.color}
-                    div Quantity : #{orderitem.quantity}
-                    div 
-                  a(href="/orderitem/delete/" + orderitem._id,class='btn btn-danger') Delete
-                  a(href="/orderitem/edit/" + orderitem._id,class='btn btn-primary') Edit
-          else
-            break
+          .orderitem-container
+            .orderitem-section
+              image.orderitem-image(src=orderitem.product_img[0])
+              .orderitem-info
+                .orderitem__header
+                  div.orderitem__title #{orderitem.product_name}
+                  div.orderitem__price $#{orderitem.price_per_unit}
+                .orderitem__selections
+                  div.selection Size: 
+                    span.selection #{orderitem.size}
+                  div.selection Color: 
+                    span.selection #{orderitem.color}
+                  div.selection Quantity: 
+                    span.selection #{orderitem.quantity}
+                  div
+                  div
+                .orderitem__buttons
+                  a(href="/orderitem/delete/" + orderitem._id class='button-delete') Delete
+                  a(href="/orderitem/edit/" + orderitem._id,class='button-edit') Edit
+        
 
     .paymentdetails-container 
-      h3 Payment Details
+      h2 Payment Details
       form(method="POST", action="/cart")
         input(type="submit", value="proceed to checkout")
+        
 
   //- form(method="POST", action="/cart")
   //-   each orderitem in orderitems 
