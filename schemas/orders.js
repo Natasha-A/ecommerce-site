@@ -10,7 +10,7 @@ order_items:{
     required : true,
 },
 order_date:{
-    type: Date,
+    type: String,
     required : true,
 },
 billing_address:{
