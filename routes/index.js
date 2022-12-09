@@ -120,7 +120,6 @@ router.get('/orderitem/edit/:id',(req,res)=>{
     if (error) {
       res.send("ERROR in EDITING orderitem for user");
     } else {
-      console.log(orderitem);
       Product.findById(orderitem.product_id, (error, product)=>{
         
         if (error) {
@@ -133,7 +132,6 @@ router.get('/orderitem/edit/:id',(req,res)=>{
   })
 })
 router.post('/orderitem/edit/:id',(req,res)=> {
-  console.log("HELLO");
 
   ShoppingCart.findById(req.params.id, (error, orderItem)=>{
     if (error) {
@@ -197,9 +195,6 @@ router.post('/cart', (req,res,next)=>{
           }
         })
       }
-
-
-     
     }
   })
 })

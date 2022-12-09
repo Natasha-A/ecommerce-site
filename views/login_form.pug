@@ -16,7 +16,7 @@ block content
                each error in errors
                   p(style="color:red") #{error.msg}
 
-            form(method="POST", action="/login")
+            form(method="POST", action="/users/login")
             
                div.label-control(for="email") Enter Email Address:
                input#email.input-control(name="email", type="text")

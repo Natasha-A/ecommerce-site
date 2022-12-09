@@ -6,6 +6,7 @@ const bcryptjs = require("bcryptjs");
 const User = require("../schemas/users");
 const passport = require("passport");
 
+
 // GET Register form  
 // POST Register form 
 router.route('/register').get((req, res, next) => {
@@ -19,29 +20,46 @@ router.route('/register').get((req, res, next) => {
   await check("password", "Passwords do not match").equals(req.body.passwordConfirm).run(req);
   var errors = validationResult(req);
   if (errors.isEmpty()) {
-    let newUser = new User();
-    newUser.name = req.body.name;
-    newUser.email = req.body.email;
-    bcryptjs.genSalt(10, (error, salt) => {
-      bcryptjs.hash(req.body.password, salt, (error, passwordHash) => {
-        if (error) {
-          console.log(JSON.stringify(error));
+    // prevent duplicate emails
+    User.find({email : req.body.email}, (error, users)=>{
+      if (error) {
+        res.send("error: finding user by email")
+      } else {
+        if (users.length != 0) {    
+          // how do we handle errors?
+          // by arrays?
+          console.log(errors);
+          errors = [{value: '', msg: 'Email is duplicated', param : 'email', location:'body'}]
+          res.render('register_form', { title: 'ShopX | Register User', errors: errors});
+        } else {
+          const newUser = new User({
+            name : req.body.name,
+            email : req.body.email
+          });
+          bcryptjs.genSalt(10, (error, salt) => {
+            bcryptjs.hash(req.body.password, salt, (error, passwordHash) => {
+              if (error) {
+                console.log(JSON.stringify(error));
+              }
+              else {
+                newUser.password = passwordHash;
+                newUser.save((error) => {
+                  if (error) {
+                    console.log(JSON.stringify(error));
+                  }
+                  else {
+                    res.redirect("/users/login");
+                  }
+                })
+              }
+            })
+          });
         }
-        else {
-          newUser.password = passwordHash;
-          newUser.save((error) => {
-            if (error) {
-              console.log(JSON.stringify(error));
-            }
-            else {
-              res.redirect("/login");
-            }
-          })
-        }
-      })
-    });
+      }
+    })
   }
   else {
+   
     res.render('register_form', { title: 'ShopX | Register User', errors: errors.array() });
   }
 });
@@ -58,7 +76,7 @@ router.route('/login').get(function (req, res, next) {
   if (errors.isEmpty()) {
     passport.authenticate("local", {
       successRedirect: "/",
-      failureRedirect: "/login",
+      failureRedirect: "/users/login",
       failureMessage: true
     })(req, res, next);
   }
@@ -73,7 +91,7 @@ router.route('/logout').get(function (req, res, next) {
     if (error){
       return next(error);
     }
-    res.redirect("/login");
+    res.redirect("/users/login");
   })
 })
 
