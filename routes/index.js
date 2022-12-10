@@ -80,24 +80,19 @@ router.get('/product/:id', function(req,res) {
 
 
 // search bar function
-// router.post('/searchbar', (req,res)=>{
+router.get('/search', async (req,res)=>{
+  const {searchWord} = req.query;
+  let products = [];
+  console.log(searchWord)
 
+  if (searchWord) {
+    products = await Product.find({
+      name : new RegExp(`${searchWord}`, "i")
+    })
+  }
+  res.render('index', { title: 'Clothing Shop | List of Clothing', products: products });
 
-//   Product.find({}, (error, products)=>{
-//     if (error) {
-//       res.send("Error")
-//     } else {
-//       products.map(p=>{
-//         if (p.name.contains(req.body.searchbar)) {
-//           res.render('/index',{ title: 'Clothing Shop | List of Clothing', products: products })
-//         }
-//       })
-      
-      
-//     }
-//   })
-
-// })
+})
 
 
 // POST request for Product (Add to ShoppingCart)
