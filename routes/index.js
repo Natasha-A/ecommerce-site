@@ -83,8 +83,7 @@ router.get('/product/:id', function(req,res) {
 router.get('/search', async (req,res)=>{
   const {searchWord} = req.query;
   let products = [];
-  console.log(searchWord)
-
+  // console.log(searchWord)
   if (searchWord) {
     products = await Product.find({
       name : new RegExp(`${searchWord}`, "i")

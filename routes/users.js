@@ -18,10 +18,20 @@ const isLoggedIn = (req, res, next)=> {
   }
 }
 
+const isNotLoggedIn = (req, res, next)=> {
+  if (req.isAuthenticated()) {
+    /// alert message how?
+      res.redirect("/");
+  }
+  else {
+      next();
+  }
+}
+
 
 // GET Register form  
 // POST Register form 
-router.route('/register').get((req, res, next) => {
+router.route('/register').get(isNotLoggedIn,(req, res, next) => {
   res.render('register_form', { title: 'ShopX | Register User' });
 }).post(async (req, res, next) => {
   await check("name", "Name is required").notEmpty().run(req);
@@ -79,7 +89,7 @@ router.route('/register').get((req, res, next) => {
 
 // GET Login form 
 // POST Login form 
-router.route('/login').get(function (req, res, next) {
+router.route('/login').get(isNotLoggedIn,function (req, res, next) {
   res.render('login_form');
 }).post(async (req, res, next) => {
   await check("email", "Email is required").notEmpty().run(req);
@@ -99,7 +109,7 @@ router.route('/login').get(function (req, res, next) {
 });
 
 
-router.route('/logout').get(function (req, res, next) {
+router.route('/logout').get(isLoggedIn,function (req, res, next) {
   req.logOut((error)=>{
     if (error){
       return next(error);
