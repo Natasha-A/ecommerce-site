@@ -25,7 +25,7 @@ const isSuperUser = (req, res, next)=> {
 
   // GET request for creating a product 
 router.get("/create", isSuperUser, function(req, res, next) {
-    res.render('product_form', {title: 'Not implemented: GET Create Product'})
+    res.render('product_form', {title: 'Create Product'})
   })
   
   // POST request for creating product 
