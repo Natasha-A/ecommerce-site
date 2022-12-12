@@ -9,13 +9,14 @@ div.navbar
       a(href='/') Shoes 
     
   div.navbar__search 
-    form(action="/search" method='POST')
+    form(action="/search" method='GET')
       a(href="/")
         button.fa-solid.fa-magnifying-glas(type='submit')
       input(
         type='text'
-        name='search'
-        placeholder='Search'      )
+        name='searchWord'
+        placeholder='Search'
+      )
 
   div.navbar__account
     div.navbar__account-info
