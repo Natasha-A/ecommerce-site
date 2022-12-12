@@ -36,11 +36,11 @@ block content
           )
         div.form-group
           label(for='sizes') Size Options:
-          - var sizes = ['X-Small', 'Small', 'Medium', 'Large', 'X-Large']
+          - var sizes = ['xSmall', 'Small', 'Medium', 'Large', 'xLarge']
           div.group(style='display:flex;')
             for size in sizes 
               div(style='flex-grow:1')
-              input.checkbox-input(type='checkbox', name='size', id=size, )
+              input.checkbox-input(type='checkbox', name='sizes', id=size, )
               label(for=size) #{size}
         div.form-group
           label(for='colors') Color Options 
