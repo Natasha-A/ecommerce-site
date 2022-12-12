@@ -1,4 +1,68 @@
 extends layout 
 
+block append head
+    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css")
+    link(rel='stylesheet' href='/stylesheets/product_form.css')
+    link(rel='stylesheet' href='/stylesheets/main.css')
+
 block content 
-  h1= title
+  .main-container
+    .form-container
+      h1= title
+      form(method='POST', action='')
+        div.form-group 
+          label(for='name') Name:
+          input#name.form-control(
+            type='text',
+            placeholder='Name of product'
+            name='name'
+            required='true')
+        div.form-group 
+          label(for='category') Category:
+          select#category.form-control(
+            type='select',
+            placeholder='Select Category'
+            name='category'
+            required='true')
+            - var categories = ['Tops', 'Bottoms', 'Shoes']
+            for category in categories
+              option(value=category) #{category}
+        div.form-group
+          label(for='price') Price:
+          input#price.form-control(
+            type='number'
+            name='price'
+            required='true'
+          )
+        div.form-group
+          label(for='sizes') Size Options:
+          - var sizes = ['X-Small', 'Small', 'Medium', 'Large', 'X-Large']
+          div.group(style='display:flex;')
+            for size in sizes 
+              div(style='flex-grow:1')
+              input.checkbox-input(type='checkbox', name='size', id=size, )
+              label(for=size) #{size}
+        div.form-group
+          label(for='colors') Color Options 
+          input#colors.form-control(
+            type='text'
+            name='colors'
+            required='true'
+          )
+        div.form-group
+          label(for='image') Image URL 
+          input#colors.form-control(
+            type='text'
+            name='image'
+            required='true'
+          )
+        button.btn.btn-primary(type='submit') Add Product
+
+
+
+          
+                  
+
+
+    .sidebar-container 
+      

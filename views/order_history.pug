@@ -20,6 +20,7 @@ block content
         .orderhistory-container
             h2=title
             .orderitem-view
+                if user.name !== "Admnin"
                 each order in orders
                     .orderitem-container
                         div #{order.order_date}
