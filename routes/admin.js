@@ -9,18 +9,6 @@ const moment = require('moment-timezone');
 
 const SUPER_USER_ID = "63976f7a0403b414ba4a4e4a";
 
-
-const isLoggedIn = (req, res, next)=> {
-    if (!req.isAuthenticated()) {
-        res.redirect("/users/login");
-    }
-    else {
-        next();
-    }
-  }
-
- 
-
 const isSuperUser = (req, res, next)=> {
     if (!req.isAuthenticated()) {
         res.redirect("/users/login");
@@ -34,22 +22,38 @@ const isSuperUser = (req, res, next)=> {
             res.redirect('/users/login')
         }
     }
-}
-// ORDER History
-router.get('/', isLoggedIn, (req,res)=> {
-    
-    User.findById(req.user.id, (error, user)=>{
+  }
+
+
+
+router.get('/users', (req,res)=>{
+
+    User.find((error, users)=>{
+        if (error) {
+            res.send("error finding users")
+        } else {
+            res.render('admin_users_view', {title : "USERS", users : users})
+        }
+    })
+})
+
+// router.get('/user/delete/:id')
+
+router.get('/orders/:email', isSuperUser, (req,res)=>{
+
+    User.find({email : req.params.email}, (error, users)=>{
         if (error) {
           res.send("User not found");
         } else {
-          Order.find({order_by : req.user.id}, (error, orders)=> {
-            if (error) {
-              res.send("ERROR : order not found")
-            } else {
-                
-              res.render('order_history', {title : "order history", orders : orders, user : user})
-            }
-          })
+            Order.find({order_by : users[0]._id}, (error, orders)=> {
+              if (error) {
+                res.send("ERROR : order not found")
+              } else {
+                  console.log(orders)
+                  
+                res.render('order_history', {title : "order history", orders : orders, user : users[0]})
+              }
+            })
         }
       })  
 })
@@ -58,4 +62,5 @@ router.get('/', isLoggedIn, (req,res)=> {
 
 
 
-module.exports = router;
+
+module.exports=router;

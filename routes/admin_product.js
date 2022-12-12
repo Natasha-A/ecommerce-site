@@ -1,5 +1,4 @@
 var express = require('express');
-const { check, validationResult } = require('express-validator');
 var router = express.Router();
 const mongoose = require("mongoose");
 const bcryptjs = require("bcryptjs");
@@ -16,8 +15,10 @@ const isSuperUser = (req, res, next)=> {
     }
     else {
         if (req.user.id == SUPER_USER_ID) {
+            // super user
             next();
         } else {
+            // alert messages
             res.redirect('/users/login')
         }
     }

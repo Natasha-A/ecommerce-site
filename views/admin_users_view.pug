@@ -1,0 +1,14 @@
+extends layout
+
+
+block content 
+    .main-container
+        h2= title
+
+        each user in users 
+            div #{user._id}
+            div #{user.name}
+            div #{user.email}
+            a(href="/admin/user/delete" + user._id, class='button-delete') Delete user
+            br
+            a(href="/admin/orders/" + user.email, class='button-edit') View order history
