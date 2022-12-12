@@ -23,8 +23,7 @@ const isSuperUser = (req, res, next)=> {
             res.redirect('/users/login')
         }
     }
-  }
-};
+  };
 
 // GET request for creating a product
 router.get("/create", isSuperUser, function (req, res, next) {
