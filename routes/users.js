@@ -118,38 +118,7 @@ router.route('/logout').get(isLoggedIn,function (req, res, next) {
   })
 })
 
-// ORDER History
-router.get('/orders', isLoggedIn, (req,res)=> {
 
-  User.findById(req.user.id, (error, user)=>{
-    if (error) {
-      res.send("User not found");
-    } else {
-      Order.find({order_by : req.user.id}, (error, orders)=> {
-        if (error) {
-          res.send("ERROR : order not found")
-        } else {
-          res.render('order_history', {title : "order history", orders : orders, user : user})
-        }
-      })
-    }
-  })  
-})
 
 module.exports = router;
-
-// // GET Login form 
-// router.get('/login', function(req, res, next) {
-//   res.render('login_form', {title: 'Not implemented: GET Login Form'})
-// })
-
-// // POST Login form 
-// router.post('/login', function(req, res, next) {
-//   res.render('login_form', {title: 'Not implemented: POST Login Form'})
-// })
-
-// // GET Logout
-// router.get('/logout', function(req, res) {
-//   res.redirect('/login')
-// })
 
