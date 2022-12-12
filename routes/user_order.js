@@ -26,15 +26,16 @@ router.get('/', isLoggedIn, (req,res)=> {
         res.send("User not found");
       } else {
         Order.find({order_by : req.user.id}, (error, orders)=> {
+          let total = 0;
           if (error) {
             res.send("ERROR : order not found")
           } else {
-            let subtotal = 0;
-            orders.order_items.map(oi=>{
-                subtotal += oi.quantity * oi.price_per_unit;
-            })
-            let total = Math.round((subtotal * 1.13)*100)/100;
-            
+            if (orders.order_items !== undefined) {
+              orders.order_items.map(oi=>{
+                  subtotal += oi.quantity * oi.price_per_unit;
+              })
+              total = Math.round((subtotal * 1.13)*100)/100;
+          }
 
             res.render('order_history', {title : "order history", orders : orders, user : user, total : total})
           }
