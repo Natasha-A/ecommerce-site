@@ -7,13 +7,15 @@ block append head
     link(rel='stylesheet' href='/stylesheets/main.css')
 
 block content
-    .main-container 
+    .main-container
         .sidebar-container
             h2 Account Details
             //- div Type : #{user.type}
             div Name : #{user.name}
             div Email : #{user.email}
             //- #{user.phoneNumber}
+            if user.name == "Admin"
+                a(href="/admin/product/create" class='button-add') Add Product
         
         .orderhistory-container
             h2=title

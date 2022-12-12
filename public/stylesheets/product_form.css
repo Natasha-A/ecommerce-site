@@ -10,7 +10,10 @@ body {
 }
 
 
-
+.group {
+  flex:1;
+  justify-content: center;
+}
 
 .navbar {
   margin-bottom: 0px;
@@ -28,51 +31,66 @@ h2 {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  height: 90vh;
+  height: 70vh;
+  margin:30px;
 }
 
-.summary-container {
-  flex: 1;
+.sidebar-container {
   background-color: #f9f9f9;
   padding: 10px 30px;
+  display: flex;
+  flex-direction: column;
+  width: 40%;
 }
 
-.paymentdetails-container {
+.sidebar-container > div {
+  margin-bottom: 10px;
+}
+.orderhistory-container {
   flex: 1;
   padding: 10px 40px;
+
 }
 
-.summary-section {
+.orderitem-view {
+  border:1px solid black;
+}
+
+
+.form-container {
   background-color: white;
   flex: 1;
   background: #ffffff;
   border: 2px solid #e6e6e6;
   border-radius: 10px;
-  height: 80%;
-  overflow-y: scroll;
   padding: 10px;
+  margin:0px 30px;
 }
 
-.orderitem-container {
-  border-bottom: 1px solid #cecece;
-  margin: 40px;
-  padding-bottom: 20px;
+.orderitem-row {
+  display: flex;
+  flex-direction: row;
+  flex:1;
+  width:100%;
+  margin: 10px 0px;
 }
 
 .orderitem-image {
-  min-width: 130px;
-  max-height: 130px;
-  border-radius: 25px;
+  min-width: 70px;
+  max-height: 70px;
+  border-radius: 15px;
 }
 
 .orderitem-info {
   flex-grow: 1;
   padding-left: 15px;
+  justify-content: space-between;
+  flex-direction: row;
 }
 
 .orderitem-section {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex: 1;
   justify-content: stretch;
 }
@@ -81,7 +99,14 @@ h2 {
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 700;
-  font-size: 24px;
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.orderitem__title > {
+  flex:1;
 }
 
 .orderitem__price {
@@ -134,15 +159,16 @@ span.selection {
   font-weight: 600;
 }
 
-.button-edit {
+.button-add {
   background-color: #67d6b4;
   padding: 10px 20px;
   color: white;
   border-radius: 5px;
   font-weight: 600;
+  text-align: center;
 }
 
-.button-edit:hover {
+.button-add:hover {
   color: white;
   box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.15);
 }
@@ -191,7 +217,7 @@ span.selection {
 .side-by-side {
   display: flex;
   gap: 10px;
-  
+
 }
 
 input.text-input {
@@ -216,26 +242,13 @@ input.text-input {
 }
 
 .total__container {
-  margin-top: 50px;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
 
 }
 
-.title {
-font-family: 'Montserrat';
-color: #4F4F4F;
-font-style: normal;
-font-weight: 600;
-font-size: 25px;
-line-height: 30px;
-}
-
-.amount {
-font-family: 'Montserrat';
-color: #000000;
+.title, .amount {
+  font-family: 'Montserrat';
 font-style: normal;
 font-weight: 600;
 font-size: 25px;
@@ -247,7 +260,7 @@ line-height: 30px;
   justify-content: space-between;
 }
 
- .button{
+.button {
   padding: 20px 20px;
   border-radius: 30px;
   background: #67d6b4;
@@ -257,35 +270,4 @@ line-height: 30px;
   color: white;
   width: 60%;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 15px;
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
-}
-
-.button:hover {
-  padding-right: 24px;
-  padding-left:8px;
-  
-}
-
-.button-container {
-  margin-top: 50px;
-  display:flex;
-  align-self: center;
-  justify-content: center;
-}
-
-button:after {
-  content: '»';
-  position: absolute;
-  opacity: 0;  
-  top: 18px;
-  right: 20px;
-  transition: 0.5s;
-}
-
-button:hover:after {
-  opacity: 1;
-  right: 10px;
 }
