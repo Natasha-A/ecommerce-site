@@ -10,14 +10,18 @@ const Product = require("../schemas/products");
 
 const SUPER_USER_ID = "63976f7a0403b414ba4a4e4a";
 
-const isSuperUser = (req, res, next) => {
-  if (!req.isAuthenticated()) {
-    res.redirect("/users/login");
-  } else {
-    if (req.user.id == SUPER_USER_ID) {
-      next();
-    } else {
-      res.redirect("/users/login");
+const isSuperUser = (req, res, next)=> {
+    if (!req.isAuthenticated()) {
+        res.redirect("/users/login");
+    }
+    else {
+        if (req.user.id == SUPER_USER_ID) {
+            // super user
+            next();
+        } else {
+            // alert messages
+            res.redirect('/users/login')
+        }
     }
   }
 };
