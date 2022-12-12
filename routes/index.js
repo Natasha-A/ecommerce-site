@@ -80,6 +80,8 @@ router.get('/product/:id', function(req,res) {
 
 
 // search bar function
+
+
 router.get('/search', async (req,res)=>{
   const {searchWord} = req.query;
   let products = [];
@@ -92,6 +94,39 @@ router.get('/search', async (req,res)=>{
   res.render('index', { title: 'Clothing Shop | List of Clothing', products: products });
 
 })
+
+router.get('/top', (req,res)=>{
+  Product.find({category : "Top"}, (error, products)=>{
+    if (error) {
+      res.send("Error in finding category products")
+    } else {
+      res.render('index', { title: 'Clothing Shop | List of Clothing', products: products });
+    }
+  })
+
+})
+
+router.get('/bottom', (req,res)=>{
+  Product.find({category : "Bottoms"}, (error, products)=>{
+    if (error) {
+      res.send("Error in finding category products")
+    } else {
+      res.render('index', { title: 'Clothing Shop | List of Clothing', products: products });
+    }
+  })
+})
+
+router.get('/shoes', (req,res)=>{
+  Product.find({category : "Shoes"}, (error, products)=>{
+    if (error) {
+      res.send("Error in finding category products")
+    } else {
+      res.render('index', { title: 'Clothing Shop | List of Clothing', products: products });
+    }
+  })
+})
+
+
 
 
 // POST request for Product (Add to ShoppingCart)
