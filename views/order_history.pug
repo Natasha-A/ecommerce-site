@@ -1,18 +1,39 @@
+extends layout 
+
+block append head
+    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css")
+
+    link(rel='stylesheet' href='/stylesheets/order_history.css')
+    link(rel='stylesheet' href='/stylesheets/main.css')
+
 block content
-    h1=title
-    p Welcome to #{title}
-    h2 Account Details
-    //- div Type : #{user.type}
-    div Name : #{user.name}
-    div Email : #{user.email}
-    //- #{user.phoneNumber}
-    br
-    each order in orders
-        div #{order.order_date}
-        each orderitem in order.order_items
-            div name:#{orderitem.product_name}
-            div size: #{orderitem.size}
-            div color : #{orderitem.color}
-            div quantity : #{orderitem.quantity}
-            div product_img : #{orderitem.product_img}
-            div price_per_unit: #{orderitem.price_per_unit}  
+    .main-container 
+        .sidebar-container
+            h2 Account Details
+            //- div Type : #{user.type}
+            div Name : #{user.name}
+            div Email : #{user.email}
+            //- #{user.phoneNumber}
+        
+        .orderhistory-container
+            h2=title
+            .orderitem-view
+                each order in orders
+                    .orderitem-container
+                        div #{order.order_date}
+                        .orderitem-section
+                            each orderitem in order.order_items
+                                .orderitem-row
+                                    image.orderitem-image(src=orderitem.product_img[0])
+                                    .orderitem-info
+                                        .orderitem__title
+                                            div #{orderitem.product_name}
+                                            div $#{orderitem.price_per_unit}
+                                        .orderitem__selections  
+                                            div.selection Size:
+                                                span.selection  #{orderitem.size}
+                                            div.selection Color:
+                                                span.selection  #{orderitem.color}
+                                            div Quantity: 
+                                                span.selection  #{orderitem.quantity}
+
