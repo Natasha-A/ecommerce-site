@@ -34,8 +34,13 @@ h2 {
 .sidebar-container {
   background-color: #f9f9f9;
   padding: 10px 30px;
+  display: flex;
+  flex-direction: column;
 }
 
+.sidebar-container > div {
+  margin-bottom: 10px;
+}
 .orderhistory-container {
   flex: 1;
   padding: 10px 40px;
@@ -160,15 +165,16 @@ span.selection {
   font-weight: 600;
 }
 
-.button-edit {
+.button-add {
   background-color: #67d6b4;
   padding: 10px 20px;
   color: white;
   border-radius: 5px;
   font-weight: 600;
+  text-align: center;
 }
 
-.button-edit:hover {
+.button-add:hover {
   color: white;
   box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.15);
 }

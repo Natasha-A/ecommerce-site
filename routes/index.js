@@ -37,6 +37,7 @@ router.get('/', function (req, res, next) {
 // GET request for creating a product 
 router.get("/create", function(req, res, next) {
   res.render('product_form', {title: 'Not implemented: GET Create Product'})
+  
 })
 
 // POST request for creating product 

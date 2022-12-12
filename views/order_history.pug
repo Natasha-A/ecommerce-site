@@ -14,6 +14,8 @@ block content
             div Name : #{user.name}
             div Email : #{user.email}
             //- #{user.phoneNumber}
+            if user.name == "Admin"
+                a(href="/create" class='button-add') Add Product
         
         .orderhistory-container
             h2=title
