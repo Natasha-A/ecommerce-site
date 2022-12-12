@@ -4,14 +4,14 @@ div.navbar
     h1 ShopX
     div.navbar__links
       a(href='/') View All 
-      a(href='/top') Tops 
-      a(href='/bottom') Bottoms 
-      a(href='/shoes') Shoes 
+      a(href='/product/category/top') Tops 
+      a(href='/product/category/bottom') Bottoms 
+      a(href='/product/category/shoes') Shoes 
     
   div.navbar__search 
-    form(action="/search" method='GET')
+    form(action="/product/search" method='GET')
       a(href="/")
-        button.fa-solid.fa-magnifying-glass(type='submit') 
+        button.fa-solid.fa-magnifying-glas(type='submit') Button
       input(
         type='text'
         name='searchWord'
@@ -30,7 +30,7 @@ div.navbar
               a.checkout-button(href="/cart")
                 .fa-solid.fa-cart-shopping
             div.navbar__user-buttons
-              a(href="/users/orders") 
+              a(href="/orders") 
                 button View Account
               a(href="/users/logout") 
                 button Logout 

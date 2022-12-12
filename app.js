@@ -12,6 +12,11 @@ require("./config/passport")(passport);
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var userProductRouter = require('./routes/user_product');
+var adminProductRouter = require('./routes/admin_product');
+var userOrderRouter = require('./routes/user_orderitem');
+var userCartRouter = require('./routes/user_cart');
+var userOrderRouter = require('./routes/user_order');
 
 var app = express();
 
@@ -50,6 +55,13 @@ app.get("*", (req, res, next) => {
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/product', userProductRouter);
+app.use('/admin/product', adminProductRouter);
+app.use('/orderitem', userOrderRouter)
+app.use('/cart', userCartRouter);
+app.use('/orders', userOrderRouter);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
