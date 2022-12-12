@@ -11,12 +11,13 @@ div.navbar
   div.navbar__search 
     form(action="/search" method='GET')
       a(href="/")
-        button.fa-solid.fa-magnifying-glas(type='submit') Button
+        button.fa-solid.fa-magnifying-glass(type='submit') 
       input(
         type='text'
         name='searchWord'
         placeholder='Search'
       )
+      
 
   div.navbar__account
     div.navbar__account-info
@@ -29,8 +30,8 @@ div.navbar
               a.checkout-button(href="/cart")
                 .fa-solid.fa-cart-shopping
             div.navbar__user-buttons
-              //- a(href="/users/info")
-              button View Account
+              a(href="/users/orders") 
+                button View Account
               a(href="/users/logout") 
                 button Logout 
 

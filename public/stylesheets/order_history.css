@@ -1,0 +1,273 @@
+/* Summary Section */
+
+@import url("https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@700&family=Inter:wght@300&family=Montserrat:wght@100;300;400;500;600;700;800&display=swap");
+
+body {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  font-family: "Montserrat";
+}
+
+
+
+
+.navbar {
+  margin-bottom: 0px;
+}
+
+h1 {
+  font-weight: 700;
+}
+
+h2 {
+  font-weight: 700;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 90vh;
+}
+
+.sidebar-container {
+  background-color: #f9f9f9;
+  padding: 10px 30px;
+}
+
+.orderhistory-container {
+  flex: 1;
+  padding: 10px 40px;
+
+}
+
+.orderitem-view {
+  height: 70vh;
+  overflow-y: scroll;
+  border:1px solid black;
+}
+
+
+.summary-section {
+  background-color: white;
+  flex: 1;
+  background: #ffffff;
+  border: 2px solid #e6e6e6;
+  border-radius: 10px;
+  height: 80%;
+  overflow-y: scroll;
+  padding: 10px;
+}
+
+.orderitem-container {
+  flex: 1;
+  border-bottom: 1px solid #cecece;
+  margin: 40px;
+  padding-bottom: 20px;
+  flex-direction: row;
+}
+
+.orderitem-row {
+  display: flex;
+  flex-direction: row;
+  flex:1;
+  width:100%;
+  margin: 10px 0px;
+}
+
+.orderitem-image {
+  min-width: 70px;
+  max-height: 70px;
+  border-radius: 15px;
+}
+
+.orderitem-info {
+  flex-grow: 1;
+  padding-left: 15px;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.orderitem-section {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: stretch;
+}
+
+.orderitem__title {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.orderitem__title > {
+  flex:1;
+}
+
+.orderitem__price {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 25px;
+}
+
+.orderitem__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: space-between;
+  flex: 1;
+  margin-bottom: 10px;
+}
+
+div.selection {
+  color: #8e8e8e;
+}
+
+span.selection {
+  color: black;
+}
+
+.orderitem__selections {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.orderitem__buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-direction: row;
+  flex-grow: 1;
+  align-items: flex-end;
+  margin-top: 18px;
+}
+
+.button-delete {
+  background-color: #e84444;
+  padding: 10px 15px;
+  border-radius: 5px;
+  color: white;
+  font-weight: 600;
+}
+
+.button-edit {
+  background-color: #67d6b4;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+.button-edit:hover {
+  color: white;
+  box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.15);
+}
+
+.button-delete:hover {
+  color: white;
+  box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Payment Details */
+.paymentdetails__section {
+  background-color: white;
+  flex: 1;
+  background: #ffffff;
+  border-radius: 10px;
+  height: 80%;
+  padding: 30px 10px;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 20px;
+  font-weight: 600;
+  padding: 10px 0px;
+  text-align: start;
+  color: #acacac;
+}
+
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 10px;
+
+}
+
+.payment-title {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 25px;
+  color: #000000;
+}
+
+.side-by-side {
+  display: flex;
+  gap: 10px;
+  
+}
+
+input.text-input {
+  flex-grow: 1;
+  width: 100%;
+}
+.form {
+  flex: 1;
+  flex-grow: 1;
+}
+
+.text-input {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #c3c3c3;
+  border-radius: 10px;
+  height: 50px;
+  font-size: 15px;
+
+}
+
+.total__container {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.title, .amount {
+  font-family: 'Montserrat';
+font-style: normal;
+font-weight: 600;
+font-size: 25px;
+line-height: 30px;
+}
+
+.total_item {
+  flex:1;
+  justify-content: space-between;
+}
+
+.button {
+  padding: 20px 20px;
+  border-radius: 30px;
+  background: #67d6b4;
+  font-weight: 600;
+  font-size: 18px;
+  border-style: none;
+  color: white;
+  width: 60%;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 15px;
+}
