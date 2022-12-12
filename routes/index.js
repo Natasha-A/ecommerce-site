@@ -171,8 +171,13 @@ router.get('/cart',isLoggedIn, (req,res,next)=>{
     if (error) {
       res.end("404 - error orderitems Line 142");
     } else {
+      let subtotal = 0;
+      orderitems.map(oi => {
+        subtotal += oi.price_per_unit*oi.quantity;
+      })
+      let total = Math.round((subtotal * 1.13)*100)/100;
 
-      res.render('order_summary', {orderitems:orderitems})
+      res.render('order_summary', {orderitems:orderitems, subtotal : subtotal, total:total})
     }
   })
 })
@@ -246,6 +251,7 @@ router.get('/orderitem/delete/:id',isLoggedIn, (req,res)=>{
   
 })
 // USER ORDERITEM EDIT
+// Quantity
 router.get('/orderitem/edit/:id',isLoggedIn,(req,res)=>{
   let id = req.params.id;
   ShoppingCart.findById(id, (error,orderitem) => {
@@ -263,24 +269,78 @@ router.get('/orderitem/edit/:id',isLoggedIn,(req,res)=>{
     }
   })
 })
-router.post('/orderitem/edit/:id',isLoggedIn,(req,res)=> {
+router.post('/orderitem/edit/:id',isLoggedIn, async (req,res)=> {
+  // update info
+  const orderItem = await ShoppingCart.findById(req.params.id);
+  orderItem.size = req.body.size;
+  orderItem.color = req.body.color;
+  orderItem.quantity = req.body.quantity;
 
-  ShoppingCart.findById(req.params.id, (error, orderItem)=>{
-    if (error) {
-      res.send("orderitem not found -- editing");
-    } else {
-      orderItem.size = req.body.size;
-      orderItem.color = req.body.color;
-      orderItem.quantity = req.body.quantity;
-      if (orderItem.order_by != req.user.id) {
-        res.redirect('/users/login');
-      }
+  if (orderItem.order_by != req.user.id) {
+    res.redirect('/users/login');
+  } else {
+    // console.log("pass1  ")
+    // check duplicates
+    const searchedOrderItems = await ShoppingCart.find({product_id : orderItem.product_id, order_by : req.user.id, color : orderItem.color, size : orderItem.size});
+    
+    // console.log("pass2  " + searchedOrderItems)
+    // if it is unique
+    if (searchedOrderItems.length == 0) {
+      console.log("pass3  " + searchedOrderItems.length)
       ShoppingCart.updateOne({_id: req.params.id}, orderItem, (error)=>{
         res.redirect('/cart');
       })
+    // if there are two, merge them
+    }else if (searchedOrderItems.length == 1){
+
+      // console.log("pass4  " + searchedOrderItems.length)
+
+      orderItem.quantity += searchedOrderItems[0].quantity;
+      ShoppingCart.deleteOne({_id : searchedOrderItems[0]._id}, (error)=>{
+        if (error) {
+          res.send("there was error during deleting")
+        } else {
+          ShoppingCart.updateOne({_id: req.params.id}, orderItem, (error)=>{
+            res.redirect('/cart');
+          })
+        }
+      });
     }
-  })
+  }
 })
+
+// // POST request for Product (Add to ShoppingCart)
+// router.post('/product/:id',isLoggedIn, (req,res) => {
+//   Product.findById(req.params.id, (errors,product) => {
+//     const orderItem = new ShoppingCart({
+//       product_id: req.params.id, 
+//       product_name: product.name, 
+//       size: req.body.size,
+//       color: req.body.color,
+//       quantity: req.body.quantity, 
+//       order_by: req.user.id, 
+//       order_confirm:false,
+//       product_img: product.image[0], 
+//       price_per_unit:product.price
+//     })
+//     ShoppingCart.find({product_id : req.params.id, order_by : req.user.id, color : orderItem.color, size : orderItem.size}, (error, oi)=>{
+//       if (error) {
+//         res.send("error");
+//       } else {
+//         if (oi.length == 0) {
+//           orderItem.save((error)=>{
+//             res.redirect('/');
+//           })
+//         } else {
+//           oi[0].quantity += orderItem.quantity;
+//           ShoppingCart.updateOne({_id : oi[0]._id}, oi[0], (error)=>{
+//             res.redirect('/');
+//           } )
+//         }
+//       }
+//     })
+//   })  
+// });
 
 
 // GET request for Order details

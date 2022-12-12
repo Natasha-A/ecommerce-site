@@ -34,49 +34,49 @@ block content
         else 
           div.orderitem__title There are no items. 
         
+    if orderitems.length
+      .paymentdetails-container 
+        h2 Payment Details
+        .paymentdetails__section 
+            form(method="POST", action="/cart")
+              div.payment-title  Card Details
+              .paymentdetails__form 
+                .form-group 
+                  label.label(for='card') Card Holder 
+                  input.text-input(type='text', placeholder="00000-00000-00000" name='card')
+                  .side-by-side 
+                    div.form
+                      label.label(for='date') MM/YY  
+                      input.text-input(type='text', placeholder="10/22" name='date')
+                    div.form
+                      label.label(for='cvc') CVC 
+                      input.text-input(type='text', placeholder="123" name='cvc')
+              div.payment-title  Billing Address
+              .paymentdetails__form 
+                .form-group 
+                  label.label(for='street') Street Address 
+                  input.text-input(type='text', placeholder="Street Address" name='street')
+                  .side-by-side 
+                    div.form
+                      label.label(for='city') City
+                      input.text-input(type='text', placeholder="City Name" name='city')
+                    div.form
+                      label.label(for='postcode') Postal Code 
+                      input.text-input(type='text', placeholder="Postal Code" name='postcode')
 
-    .paymentdetails-container 
-      h2 Payment Details
-      .paymentdetails__section 
-          form(method="POST", action="/cart")
-            div.payment-title  Card Details
-            .paymentdetails__form 
-              .form-group 
-                label.label(for='card') Card Holder 
-                input.text-input(type='text', placeholder="00000-00000-00000" name='card')
-                .side-by-side 
-                  div.form
-                    label.label(for='date') MM/YY  
-                    input.text-input(type='text', placeholder="10/22" name='date')
-                  div.form
-                    label.label(for='cvc') CVC 
-                    input.text-input(type='text', placeholder="123" name='cvc')
-            div.payment-title  Billing Address
-            .paymentdetails__form 
-              .form-group 
-                label.label(for='street') Street Address 
-                input.text-input(type='text', placeholder="Street Address" name='street')
-                .side-by-side 
-                  div.form
-                    label.label(for='city') City
-                    input.text-input(type='text', placeholder="City Name" name='city')
-                  div.form
-                    label.label(for='postcode') Postal Code 
-                    input.text-input(type='text', placeholder="Postal Code" name='postcode')
+              div.total__container
+                .total_item
+                  div.title Sub Total
+                  div.amount #{subtotal}
+                .total_item
+                  div.title Shipping 
+                  div.amount FREE 
+                .total_item
+                  div.title Total
+                  div.amount #{total} 
+                  
 
-            div.total__container
-              .total_item
-                div.title Sub Total
-                div.amount $300
-              .total_item
-                div.title Shipping 
-                div.amount FREE 
-              .total_item
-                div.title  Total 
-                div.amount $420.00
-                
-
-            input.button(type="submit", value="proceed to checkout")
+              input.button(type="submit", value="proceed to checkout")
 
 
   //- form(method="POST", action="/cart")
