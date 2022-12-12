@@ -67,16 +67,16 @@ block content
               div.total__container
                 .total_item
                   div.title Sub Total
-                  div.amount #{subtotal}
+                  div.amount $#{subtotal}
                 .total_item
-                  div.title Shipping 
-                  div.amount FREE 
+                  div.title Shipping
+                  div.amount FREE   
                 .total_item
                   div.title Total
-                  div.amount #{total} 
-                  
+                  div.amount $#{total}
 
-              input.button(type="submit", value="proceed to checkout")
+              .button-container
+                button.button(type="submit", value="proceed to checkout") Proceed to Checkout
 
 
   //- form(method="POST", action="/cart")

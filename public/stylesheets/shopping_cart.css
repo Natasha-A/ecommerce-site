@@ -216,13 +216,26 @@ input.text-input {
 }
 
 .total__container {
+  margin-top: 50px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 
 }
 
-.title, .amount {
-  font-family: 'Montserrat';
+.title {
+font-family: 'Montserrat';
+color: #4F4F4F;
+font-style: normal;
+font-weight: 600;
+font-size: 25px;
+line-height: 30px;
+}
+
+.amount {
+font-family: 'Montserrat';
+color: #000000;
 font-style: normal;
 font-weight: 600;
 font-size: 25px;
@@ -234,7 +247,7 @@ line-height: 30px;
   justify-content: space-between;
 }
 
-.button {
+ .button{
   padding: 20px 20px;
   border-radius: 30px;
   background: #67d6b4;
@@ -244,4 +257,35 @@ line-height: 30px;
   color: white;
   width: 60%;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 15px;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button:hover {
+  padding-right: 24px;
+  padding-left:8px;
+  
+}
+
+.button-container {
+  margin-top: 50px;
+  display:flex;
+  align-self: center;
+  justify-content: center;
+}
+
+button:after {
+  content: '»';
+  position: absolute;
+  opacity: 0;  
+  top: 18px;
+  right: 20px;
+  transition: 0.5s;
+}
+
+button:hover:after {
+  opacity: 1;
+  right: 10px;
 }
