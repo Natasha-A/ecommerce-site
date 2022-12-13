@@ -34,16 +34,23 @@ router.post("/create", [
   // Validate and santize fields
 
   (req, res, next) => {
-
     let sizeOptions = []
       if (req.body.xSmall == "on") sizeOptions.push("X-Small");
       if (req.body.Small == "on") sizeOptions.push("Small");
       if (req.body.Medium == "on") sizeOptions.push("Medium");
       if (req.body.Large == "on") sizeOptions.push("Large");
       if (req.body.xLarge == "on") sizeOptions.push("X-Large");
+      
+      if (sizeOptions.length == 0) {
+        sizeOptions = ['Small', 'Medium', 'Large'];
+      }
     
-    // res.locals.sizeArray = sizeOptions;
-    // console.log(sizeOptions)
+    res.locals.sizeArray = sizeOptions;
+    req.sizeArray = sizeOptions;
+    console.log(sizeOptions)
+    console.log(res.sizeArray)
+
+
     next()
   },
 
@@ -62,11 +69,13 @@ router.post("/create", [
         .matches(/([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif))/i),
       body("sizes.*").escape()
 
+      console.log(res)
+
       const product = new Product({
         name:req.body.name,
         price: req.body.price,
         color: req.body.colors,
-        size: ["Small", "Medium", "Large"],
+        size: req.sizeArray,
         category: req.body.category,
         image: req.body.image,
         posted_by: SUPER_USER_ID,

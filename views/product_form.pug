@@ -40,7 +40,7 @@ block content
           div.group(style='display:flex;')
             for size in sizes 
               div(style='flex-grow:1')
-              input.checkbox-input(type='checkbox', name='sizes', id=size, )
+              input.checkbox-input(type='checkbox', name=size, id=size, )
               label(for=size) #{size}
         div.form-group
           label(for='colors') Color Options 
