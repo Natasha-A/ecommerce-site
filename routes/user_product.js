@@ -7,16 +7,16 @@ const Order = require("../schemas/orders");
 const User = require('../schemas/users');
 const moment = require('moment-timezone');
 
+const SUPER_USER_ID = "63976f7a0403b414ba4a4e4a";
 
-
-const isLoggedIn = (req, res, next)=> {
-    if (!req.isAuthenticated()) {
-        res.redirect("/users/login");
-    }
-    else {
-        next();
-    }
+const isUser = (req,res,next) => {
+  if (!req.isAuthenticated() || req.user.id == SUPER_USER_ID) {
+    res.redirect("/users/login");
+  } else {
+    next();
   }
+}
+  
 
 // PRODUCT ROUTES 
 // SEARCH
@@ -79,36 +79,38 @@ router.get('/search', async (req,res)=>{
   });
 
   // POST request for Product (Add to ShoppingCart)
-router.post('/:id',isLoggedIn, (req,res) => {
-    Product.findById(req.params.id, (errors,product) => {
-      const orderItem = new ShoppingCart({
-        product_id: req.params.id, 
-        product_name: product.name, 
-        size: req.body.size,
-        color: req.body.color,
-        quantity: req.body.quantity, 
-        order_by: req.user.id, 
-        order_confirm:false,
-        product_img: product.image[0], 
-        price_per_unit:product.price
-      })
-      ShoppingCart.find({product_id : req.params.id, order_by : req.user.id, color : orderItem.color, size : orderItem.size}, (error, oi)=>{
-        if (error) {
-          res.send("error");
-        } else {
-          if (oi.length == 0) {
-            orderItem.save((error)=>{
-              res.redirect('/');
-            })
+router.post('/:id',isUser, (req,res) => {
+  
+      Product.findById(req.params.id, (errors,product) => {
+        const orderItem = new ShoppingCart({
+          product_id: req.params.id, 
+          product_name: product.name, 
+          size: req.body.size,
+          color: req.body.color,
+          quantity: req.body.quantity, 
+          order_by: req.user.id, 
+          order_confirm:false,
+          product_img: product.image[0], 
+          price_per_unit:product.price
+        })
+        ShoppingCart.find({product_id : req.params.id, order_by : req.user.id, color : orderItem.color, size : orderItem.size}, (error, oi)=>{
+          if (error) {
+            res.send("error");
           } else {
-            oi[0].quantity += orderItem.quantity;
-            ShoppingCart.updateOne({_id : oi[0]._id}, oi[0], (error)=>{
-              res.redirect('/');
-            } )
+            if (oi.length == 0) {
+              orderItem.save((error)=>{
+                res.redirect('/');
+              })
+            } else {
+              oi[0].quantity += orderItem.quantity;
+              ShoppingCart.updateOne({_id : oi[0]._id}, oi[0], (error)=>{
+                res.redirect('/');
+              } )
+            }
           }
-        }
-      })
-    })  
+        })
+      })  
+
 });
   
 

@@ -7,20 +7,21 @@ const Order = require("../schemas/orders");
 const User = require('../schemas/users');
 const moment = require('moment-timezone');
 
+const SUPER_USER_ID = "63976f7a0403b414ba4a4e4a";
 
-const isLoggedIn = (req, res, next)=> {
-    if (!req.isAuthenticated()) {
-        res.redirect("/users/login");
-    }
-    else {
-        next();
-    }
+const isUser = (req,res,next) => {
+  if (!req.isAuthenticated() || req.user.id == SUPER_USER_ID) {
+    res.redirect("/users/login");
+  } else {
+    next();
   }
+}
+
   
 
 // SHOPPING CART ROUTES
 
-router.get('/',isLoggedIn, (req,res,next)=>{
+router.get('/',isUser, (req,res,next)=>{
     ShoppingCart.find({order_by : req.user.id}, (error, orderitems)=> {
       if (error) {
         res.end("404 - error orderitems Line 142");
@@ -36,7 +37,7 @@ router.get('/',isLoggedIn, (req,res,next)=>{
     })
   })
   
-  router.post('/',isLoggedIn, (req,res,next)=>{
+  router.post('/',isUser, (req,res,next)=>{
   
     // address --> order , user
     ShoppingCart.find({order_by : req.user.id}, (error, orderitems)=> {

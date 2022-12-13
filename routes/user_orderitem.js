@@ -6,21 +6,22 @@ const ShoppingCart = require("../schemas/shoppingCart");
 const Order = require("../schemas/orders");
 const User = require('../schemas/users');
 const moment = require('moment-timezone');
+const SUPER_USER_ID = "63976f7a0403b414ba4a4e4a";
 
 
-
-const isLoggedIn = (req, res, next)=> {
-    if (!req.isAuthenticated()) {
-        res.redirect("/users/login");
-    }
-    else {
-        next();
-    }
+const isUser = (req,res,next) => {
+  if (!req.isAuthenticated() || req.user.id == SUPER_USER_ID) {
+    res.redirect("/users/login");
+  } else {
+    next();
   }
-  
+}
+
 
 // USER ORDERITEM DELETE
-router.get('/delete/:id',isLoggedIn, (req,res)=>{
+router.get('/delete/:id',isUser, (req,res)=>{
+    
+
     let id = req.params.id;
     ShoppingCart.deleteOne({_id : id}, (error)=>{
       if (error) {
@@ -33,7 +34,7 @@ router.get('/delete/:id',isLoggedIn, (req,res)=>{
   })
   // USER ORDERITEM EDIT
   // Quantity
-  router.get('/edit/:id',isLoggedIn,(req,res)=>{
+  router.get('/edit/:id',isUser,(req,res)=>{
     let id = req.params.id;
     ShoppingCart.findById(id, (error,orderitem) => {
       if (error) {
@@ -50,7 +51,7 @@ router.get('/delete/:id',isLoggedIn, (req,res)=>{
       }
     })
   })
-  router.post('/edit/:id',isLoggedIn, async (req,res)=> {
+  router.post('/edit/:id',isUser, async (req,res)=> {
     // update info
     const orderItem = await ShoppingCart.findById(req.params.id);
     orderItem.size = req.body.size;

@@ -10,17 +10,11 @@ const moment = require('moment-timezone');
 const SUPER_USER_ID = "63976f7a0403b414ba4a4e4a";
 
 const isSuperUser = (req, res, next)=> {
-    if (!req.isAuthenticated()) {
+    if (!req.isAuthenticated() || req.user.id != SUPER_USER_ID) {
         res.redirect("/users/login");
     }
     else {
-        if (req.user.id == SUPER_USER_ID) {
-            // super user
-            next();
-        } else {
-            // alert messages
-            res.redirect('/users/login')
-        }
+        next();
     }
   }
 
@@ -40,6 +34,19 @@ router.get('/users',isSuperUser, (req,res)=>{
 router.get('/user/delete/:id',isSuperUser, (req,res)=>{
     // delete user,
     // delete order
+    Order.deleteMany({order_by : req.params.id}, error => {
+        if (error) {
+            res.send("order delete error")
+        } else {
+            User.deleteOne({_id : req.params.id}, error => {
+                if (error) {
+                    res.send("user delete error");
+                } else {
+                    res.redirect('/admin/users');
+                }
+            })
+        }
+    })
 
 
 })
