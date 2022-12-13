@@ -1,14 +1,34 @@
 extends layout
 
+block append head
+    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css")
 
-block content 
+    link(rel='stylesheet' href='/stylesheets/order_history.css')
+    link(rel='stylesheet' href='/stylesheets/main.css')
+
+block content
     .main-container
-        h2= title
+        .sidebar-container
+            h2 Account Details
+            //- div Type : #{user.type}
+            div Id : #{user.id}
+            div Email : #{user.name}
+            div Email : #{user.email}
+            //- #{user.phoneNumber}
+            if user.name == "Admin"
+                a(href="/admin/product/create" class='button-add') Add Product
+        
+        .orderhistory-container
+            h2=title
+            .orderitem-view
+                .orderitem-section
+                    each user in users
+                        div #{user._id}
+                        div #{user.name}
+                        div #{user.email}
+                        .orderitem-info(style='margin:30px 0px')
+                            a(href="/admin/user/delete" + user._id, class='button-delete') Delete user
+                            a(href="/admin/orders/" + user.email, class='button-edit') View order history
 
-        each user in users 
-            div #{user._id}
-            div #{user.name}
-            div #{user.email}
-            a(href="/admin/user/delete" + user._id, class='button-delete') Delete user
-            br
-            a(href="/admin/orders/" + user.email, class='button-edit') View order history
+
+

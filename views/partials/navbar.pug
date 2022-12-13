@@ -30,8 +30,12 @@ div.navbar
               a.checkout-button(href="/cart")
                 .fa-solid.fa-cart-shopping
             div.navbar__user-buttons
-              a(href="/orders") 
-                button View Account
+              if user.name == "Admin"
+                a(href="/admin/users") 
+                  button View Account
+              else
+                a(href="/orders") 
+                  button View Account
               a(href="/users/logout") 
                 button Logout 
 
