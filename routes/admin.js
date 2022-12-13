@@ -26,7 +26,7 @@ const isSuperUser = (req, res, next)=> {
 
 
 
-router.get('/users', (req,res)=>{
+router.get('/users',isSuperUser, (req,res)=>{
 
     User.find((error, users)=>{
         if (error) {
@@ -37,7 +37,12 @@ router.get('/users', (req,res)=>{
     })
 })
 
-// router.get('/user/delete/:id')
+router.get('/user/delete/:id',isSuperUser, (req,res)=>{
+    // delete user,
+    // delete order
+
+
+})
 
 router.get('/orders/:email', isSuperUser, (req,res)=>{
 

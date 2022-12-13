@@ -14,7 +14,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var userProductRouter = require('./routes/user_product');
 var adminProductRouter = require('./routes/admin_product');
-var userOrderRouter = require('./routes/user_orderitem');
+var userOrderItemRouter = require('./routes/user_orderitem');
 var userCartRouter = require('./routes/user_cart');
 var userOrderRouter = require('./routes/user_order');
 var adminRouter = require('./routes/admin');
@@ -58,7 +58,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/product', userProductRouter);
 app.use('/admin/product', adminProductRouter);
-app.use('/orderitem', userOrderRouter)
+app.use('/orderitem', userOrderItemRouter)
 app.use('/cart', userCartRouter);
 app.use('/orders', userOrderRouter);
 app.use('/admin', adminRouter);
