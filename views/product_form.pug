@@ -6,7 +6,7 @@ block append head
     link(rel='stylesheet' href='/stylesheets/main.css')
 
 block content 
-  .main-container(style="width:70%")
+  .main-container
     .form-container
       h1= title
       form(method='POST', action='')
@@ -57,3 +57,8 @@ block content
             required='true'
           )
         button.btn.btn-primary(type='submit') Add Product
+    .sidebar-container 
+      if errors
+        ul
+          for error in errors
+            li!= error.msg
