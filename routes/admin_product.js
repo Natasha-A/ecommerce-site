@@ -62,7 +62,7 @@ router.post("/create", [
       body("image", "Image must not be empty and valid image type.")
         .trim()
         .isLength({ min: 1 })
-        .matches(/(https?:\/\/.*\.(?:png|jpg))/i),
+        .matches(/\.(jpg|jpeg|png|webp|avif|gif)$/),
       body("sizes.*").escape()
 
       const product = new Product({

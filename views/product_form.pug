@@ -107,3 +107,7 @@ block content
         .button-container
           button.button(type='submit') Add Product
 
+      if errors
+        ul
+          for error in errors
+            li!= error.msg
