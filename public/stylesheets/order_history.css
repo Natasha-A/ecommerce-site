@@ -55,6 +55,21 @@ h2 {
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
+.totalcost {
+  font-size: 25px;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-self: flex-end;
+  padding:14px 10px;
+  font-weight: 600;
+  background-color: #67d6b4;
+  color: white;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+
+}
 
 .summary-section {
   background-color: white;
