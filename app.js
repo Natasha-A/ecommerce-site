@@ -21,6 +21,8 @@ var adminRouter = require('./routes/admin');
 
 var app = express();
 
+
+
 mongoose.connect(dataBaseConfig.connectionString)
 let dbconnection = mongoose.connection;
 dbconnection.once("open", () => { console.log("Connected to mongodb") });
