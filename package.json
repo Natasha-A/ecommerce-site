@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "async": "^3.2.4",
+    "base64-vlq": "^0.0.5",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
@@ -23,9 +24,7 @@
     "morgan": "~1.9.1",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
-    "pug": "2.0.0-beta11",
-    "js-base64": "^2.1.9"
-
+    "pug": "2.0.0-beta11"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
