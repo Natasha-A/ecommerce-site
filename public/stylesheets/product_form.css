@@ -1,273 +1,124 @@
-/* Summary Section */
 
-@import url("https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@700&family=Inter:wght@300&family=Montserrat:wght@100;300;400;500;600;700;800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@700&family=Inter:wght@300&family=Montserrat:wght@100;300;400;500;600;700;800&display=swap');
 
 body {
   padding: 0px;
-  margin: 0px;
-  box-sizing: border-box;
-  font-family: "Montserrat";
-}
-
-
-.group {
-  flex:1;
-  justify-content: center;
-}
-
-.navbar {
-  margin-bottom: 0px;
+  margin:0px;
+  box-sizing:border-box;
+  font-family: 'Montserrat';
 }
 
 h1 {
-  font-weight: 700;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 2em;
+    line-height: 61px;
+    color: #000000;
+    text-align: center;
 }
 
-h2 {
-  font-weight: 700;
+div.navbar {
+  margin-bottom: 0px;
 }
 
 .main-container {
+  background: #E8F5F3;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  height: 70vh;
-  margin:30px;
+  height: 90vh;
+  align-items: center;
+  justify-content: center;
 }
 
-.sidebar-container {
-  background-color: #f9f9f9;
-  padding: 10px 30px;
-  display: flex;
-  flex-direction: column;
-  width: 40%;
+.main-container > div {
+  flex:1
 }
 
-.sidebar-container > div {
-  margin-bottom: 10px;
-}
-.orderhistory-container {
-  flex: 1;
-  padding: 10px 40px;
 
-}
 
-.orderitem-view {
-  border:1px solid black;
+.signup_title {
+  text-align: center;
+  font-weight: 700;
 }
-
 
 .form-container {
-  background-color: white;
-  flex: 1;
-  background: #ffffff;
-  border: 2px solid #e6e6e6;
-  border-radius: 10px;
-  padding: 10px;
-  margin:0px 30px;
-}
-
-.orderitem-row {
-  display: flex;
   flex-direction: row;
-  flex:1;
-  width:100%;
-  margin: 10px 0px;
+  background: #FFFFFF;
+  border: 2px solid #E6E6E6;
+  box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 50px;
+  padding:2% 5%;
+  margin: 5% 5%;
+  margin-bottom: 8%;
+  max-width: 700px;
 }
 
-.orderitem-image {
-  min-width: 70px;
-  max-height: 70px;
-  border-radius: 15px;
+.form-label {
+  margin:10px 0px;
+  font-size: 18px;
+  font-weight: 600;
+  color: grey;
 }
 
-.orderitem-info {
-  flex-grow: 1;
-  padding-left: 15px;
-  justify-content: space-between;
-  flex-direction: row;
+.form-control {
+  margin-bottom: 10px !important;
+}
+.picture-container{
+    box-sizing: border-box;
+    background: url("http://www.finelife.com.tw/wp-content/uploads/2022/06/product-image-4.jpg");
+    background-size: cover;
+    flex:1;
+    height: 100%;
+
 }
 
-.orderitem-section {
+.label-control{
+    margin-top: 50px;
+    margin-left: 50px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    color: grey;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+.input-control{
   display: flex;
-  flex-direction: column;
-  flex: 1;
+  margin: 20px 0px;
+  flex-wrap: true;
   justify-content: stretch;
-}
-
-.orderitem__title {
-  font-family: "Montserrat";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 20px;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
-}
-
-.orderitem__title > {
-  flex:1;
-}
-
-.orderitem__price {
-  font-family: "Montserrat";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 25px;
-}
-
-.orderitem__header {
-  display: flex;
+  align-items: stretch;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: space-between;
-  flex: 1;
-  margin-bottom: 10px;
-}
+    margin-top: 10px;
+    margin-left: 50px;
+    margin-right: 50px;
+    box-sizing: border-box;
 
-div.selection {
-  color: #8e8e8e;
-}
-
-span.selection {
-  color: black;
-}
-
-.orderitem__selections {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.orderitem__buttons {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  flex-direction: row;
-  flex-grow: 1;
-  align-items: flex-end;
-  margin-top: 18px;
-}
-
-.button-delete {
-  background-color: #e84444;
-  padding: 10px 15px;
-  border-radius: 5px;
-  color: white;
-  font-weight: 600;
-}
-
-.button-add {
-  background-color: #67d6b4;
-  padding: 10px 20px;
-  color: white;
-  border-radius: 5px;
-  font-weight: 600;
-  text-align: center;
-}
-
-.button-add:hover {
-  color: white;
-  box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.15);
-}
-
-.button-delete:hover {
-  color: white;
-  box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.15);
-}
-
-/* Payment Details */
-.paymentdetails__section {
-  background-color: white;
-  flex: 1;
-  background: #ffffff;
-  border-radius: 10px;
-  height: 80%;
-  padding: 30px 10px;
-  flex-direction: column;
-}
-
-.label {
-  font-size: 20px;
-  font-weight: 600;
-  padding: 10px 0px;
-  text-align: start;
-  color: #acacac;
-}
-
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  gap: 10px;
+    background: #FFFFFF;
+    border: 1px solid #C3C3C3;
+    border-radius: 10px;
 
 }
 
-.payment-title {
-  font-family: "Montserrat";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 25px;
-  color: #000000;
-}
-
-.side-by-side {
-  display: flex;
-  gap: 10px;
-
-}
-
-input.text-input {
-  flex-grow: 1;
-  width: 100%;
-}
-.form {
-  flex: 1;
-  flex-grow: 1;
-}
-
-.text-input {
-  display: flex;
-  flex-direction: row;
-  box-sizing: border-box;
-  background: #ffffff;
-  border: 1px solid #c3c3c3;
-  border-radius: 10px;
-  height: 50px;
-  font-size: 15px;
-
-}
-
-.total__container {
-  display: flex;
-  flex-direction: column;
-
-}
-
-.title, .amount {
-  font-family: 'Montserrat';
-font-style: normal;
-font-weight: 600;
-font-size: 25px;
-line-height: 30px;
-}
-
-.total_item {
-  flex:1;
-  justify-content: space-between;
-}
-
+.button-container {
+    display:flex;
+    align-self: center;
+    justify-content: center;
+  }
+  
 .button {
-  padding: 20px 20px;
-  border-radius: 30px;
-  background: #67d6b4;
-  font-weight: 600;
-  font-size: 18px;
-  border-style: none;
-  color: white;
-  width: 60%;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 15px;
+    padding:20px 20px;
+    color:white;
+    background:#67D6B4;
+    font-weight: 600;
+    font-size: 18px;
+    border-style: none;
+    width: 60%;
+    margin-top: 5%;
+    border-radius: 15px;
+  
 }
+  

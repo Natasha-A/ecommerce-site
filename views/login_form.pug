@@ -11,25 +11,24 @@ block content
 
    div.main-container
       .login-container
-            h1 Login
-            //- if errors
-            //-    each error in errors
-            //-       p(style="color:red") #{error.msg}
-
+            h2.login_title Login
             form(method="POST", action="/users/login")
-            
-               div.label-control(for="email") Enter Email Address:
-               input#email.input-control(name="email", type="text")
-               if errors
-                  each error in errors
-                     if error.param == 'email'
-                        span(style="color:red") #{error.msg}
-               div.label-control(for="password") Password:
-               input#password.input-control(name="password", type="password")
-               if errors
-                  each error in errors
-                     if error.param == 'password'
-                        span(style="color:red") #{error.msg}
+               
+               div.form-group
+                  div.form-label(for="email") Enter Email Address:
+                  input#email.form-control(name="email" type="email" required)
+                  if errors
+                     each error in errors
+                        if error.param == 'email'
+                           span(style="color:red") #{error.msg}
+               
+               div.form-group
+                  div.form-label(for="password") Password:
+                  input#password.form-control(name="password", type="password" required)
+                  if errors
+                     each error in errors
+                        if error.param == 'password'
+                           span(style="color:red") #{error.msg}
 
                .button-container
                   button.button(type="submit", value="Login") Login
