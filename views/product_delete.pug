@@ -1,4 +1,27 @@
 extends layout 
 
+block append head 
+  link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css")
+  script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js")
+  script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js")
+  link(rel='stylesheet' href='/stylesheets/product_details.css')
+  link(rel='stylesheet' href='/stylesheets/main.css')
+
 block content 
-  h1= title
+  div(style='margin-left:20px;margin-top:20px')
+    h1 #{title} : #{product.name}
+    p #[strong Do you really want to delete this product?]
+
+    
+  
+    form(method='POST' action='')
+      div.form-group 
+        input#productid.form-control(type='hidden'
+        name='productid'
+        required='true'
+        value=product._id
+        )
+
+        button.btn.btn-primary(type='submit') Delete
+
+  
