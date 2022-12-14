@@ -23,9 +23,9 @@ block content
             .orderitem-view
                 .orderitem-section
                     each user in users
-                        div #{user._id}
-                        div #{user.name}
-                        div #{user.email}
+                        div ID : #{user._id}
+                        div NAME : #{user.name}
+                        div EMAIL : #{user.email}
                         .orderitem-info(style='margin:30px 0px')
                             a(href="/admin/user/delete/" + user._id, class='button-delete') Delete user
                             a(href="/admin/orders/" + user.email, class='button-edit') View order history
