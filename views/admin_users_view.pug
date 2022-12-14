@@ -21,14 +21,16 @@ block content
         .orderhistory-container
             h2=title
             .orderitem-view
-                .orderitem-section
+                .accounts
                     each user in users
-                        div ID : #{user._id}
-                        div NAME : #{user.name}
-                        div EMAIL : #{user.email}
-                        .orderitem-info(style='margin:30px 0px')
-                            a(href="/admin/user/delete/" + user._id, class='button-delete') Delete user
-                            a(href="/admin/orders/" + user.email, class='button-edit') View order history
+                        .usercontainer
+                            div(style='margin-top: 100px;')
+                                div.text ID : #{user._id}
+                                div.text NAME : #{user.name}
+                                div.text EMAIL : #{user.email}
+                                .orderitem-info(style='margin-top: 100px;')
+                                    a(href="/admin/user/delete/" + user._id, class='button-delete') Delete user
+                                    a(href="/admin/orders/" + user.email, class='button-edit') View order history
 
 
 
