@@ -12,11 +12,19 @@ block content
       form(method='POST', action='')
         div.form-group 
           label(for='name') Name:
-          input#name.form-control(
-            type='text',
-            placeholder='Name of product'
-            name='name'
-            required='true')
+          if product
+            input#name.form-control(
+              type='text',
+              value=product.name
+              name='name'
+              required='true')
+          else
+            input#name.form-control(
+              type='text',
+              placeholder='Name of product'
+              name='name'
+              required='true')
+
         div.form-group 
           label(for='category') Category:
           select#category.form-control(
@@ -26,37 +34,70 @@ block content
             required='true')
             - var categories = ['Tops', 'Bottoms', 'Shoes']
             for category in categories
-              option(value=category) #{category}
+              if product
+                option(
+                  value=category
+                  selected=(product.category)
+                ) #{category}
+              else 
+                option(
+                  value=category
+                ) #{category}
         div.form-group
           label(for='price') Price:
-          input#price.form-control(
-            type='number'
-            name='price'
-            required='true'
-          )
+          if product
+            input#price.form-control(
+              type='number'
+              name='price'
+              required='true'
+              value=product.price
+            )
+          else
+            input#price.form-control(
+              type='number'
+              name='price'
+              required='true'
+            )
         div.form-group
           label(for='sizes') Size Options:
           - var sizes = ['xSmall', 'Small', 'Medium', 'Large', 'xLarge']
           div.group(style='display:flex;')
-            for size in sizes 
-              div(style='flex-grow:1')
-              input.checkbox-input(type='checkbox', name=size, id=size, )
-              label(for=size) #{size}
+              if product 
+                  for size in product.size 
+                    div(style='flex-grow:1')
+                      input.checkbox-input(type='checkbox', name=size, id=size checked)
+                      label(for=size) #{size}
+              else 
+                for size in sizes 
+                  div(style='flex-grow:1')
+                    input.checkbox-input(type='checkbox', name=size, id=size, )
+                    label(for=size) #{size}
         div.form-group
-          label(for='colors') Color Options 
-          input#colors.form-control(
-            type='text'
-            name='colors'
-            required='true'
-          )
+          label(for='colors') Color Options (Seperated by commas)
+          if product
+            input#colors.form-control(
+              type='text'
+              name='colors'
+              required='true'
+              value=(product.color).toString()
+            )
+          else
+            input#colors.form-control(
+              type='text'
+              name='colors'
+              required='true'
+            )
         div.form-group
-          label(for='image') Image URL 
-          input#colors.form-control(
-            type='text'
-            name='image'
-            required='true'
-          )
+          ir 
+          if !product
+            label(for='image') Image URL 
+            input#colors.form-control(
+              type='text'
+              name='image'
+              required='true'
+            )
         button.btn.btn-primary(type='submit') Add Product
+        
     .sidebar-container 
       if errors
         ul

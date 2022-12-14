@@ -66,27 +66,7 @@ block content
         .button-container
           button.button(type='submit') Add to Cart
         
-          
-
-
-  //- p Welcome to #{title}
-  //-   div id:#{product.id}
-  //-   div name:#{product.name}
-  //-   div price: #{product.price}
-  //-   div category : #{product.category}
-  //-   div image : #{product.image}
-  //-   div posted_by : #{product.posted_by}
-  //-   div color:
-  //-   select
-  //-     each color in product.color
-  //-       option(value=color.id) #{color}
-  //-   div size:
-  //-   select
-  //-     each size in product.size
-  //-       option(value=size.id) #{size}    
-  //-   div image:
-  //-     each image in product.image
-  //-       div #{image}
-  //-       //-  image.product-image(src=#{image}) 
-  //-     a(href="" + product._id) Add to Shopping Cart
-      
+        p 
+          a(href='/admin/product/update/' + product.id) Update Product
+        p 
+          a(href='delete/' + product.id) Delete Product

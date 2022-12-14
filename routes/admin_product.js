@@ -7,7 +7,8 @@ const User = require("../schemas/users");
 const passport = require("passport");
 const Order = require("../schemas/orders");
 const Product = require("../schemas/products");
-
+let AVAILABLE_SIZES = ["X-Small", "Small", "Medium", "Large", "X-Large"];
+var async = require('async')
 const SUPER_USER_ID = "63976f7a0403b414ba4a4e4a";
 
 const isSuperUser = (req, res, next) => {
@@ -42,7 +43,7 @@ router.post("/create", [
       if (req.body.xLarge == "on") sizeOptions.push("X-Large");
       
       if (sizeOptions.length == 0) {
-        sizeOptions = ['Small', 'Medium', 'Large'];
+        sizeOptions = AVAILABLE_SIZES;
       }
     
     res.locals.sizeArray = sizeOptions;
@@ -108,9 +109,27 @@ router.post("/:id/delete", isSuperUser, function (req, res, next) {
   });
 });
 
-// GET request to update product
-router.get("/:id/update", isSuperUser, function (req, res, next) {
-  res.render("product_form", { title: "Not implemented: GET Update Product" });
+
+router.get("/update/:id", isSuperUser, function (req, res, next) {
+
+    Product.findById(req.params.id, (err, resultProduct)  => {
+      if (err) {
+        return next(err);
+      }
+      if (resultProduct == null) {
+        // No results. 
+        const err = new Error("Product not found");
+        err.status = 404;
+        return next(err)
+      }
+
+      console.log(resultProduct)
+      res.render("product_form", {
+        title: "Update Product", 
+        product: resultProduct
+      })
+    }  
+  )
 });
 
 // POST request to update product
