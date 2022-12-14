@@ -95,10 +95,9 @@ router.route('/register').get(isNotLoggedIn, (req, res, next) => {
 router.route('/login').get(isNotLoggedIn, function (req, res, next) {
   res.render('login_form');
 }).post([
-  check("email")
-    .isEmail()
-    .withMessage("Email is required"),
-  check("password", "Password is required")
+  check('email', "Please check your email again")
+    .isEmail(),
+  check("password", "Please check your password")
     .notEmpty()
 ],(req, res, next) => {
   var errors = validationResult(req);
@@ -110,7 +109,8 @@ router.route('/login').get(isNotLoggedIn, function (req, res, next) {
     })(req, res, next);
   }
   else {
-    res.render('login_form', { title: 'Not implemented: POST Login Form', errors: errors.array() });
+    console.log(errors)
+    res.render('login_form', { errors: errors.array() });
   }
 });
 
