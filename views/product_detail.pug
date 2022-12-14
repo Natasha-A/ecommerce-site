@@ -66,8 +66,10 @@ block content
         .button-container
           button.button(type='submit') Add to Cart
         
-        if (user.name == 'Admin')
-            div(style='margin-top:50px; display:flex; align-items:center; justify-content:center')
-              a(href="/admin/product/update/" + product.id, class='button-edit') Update
-              a(href="/admin/product/delete/" + product.id, class='button-delete') Delete
-  
+        if user
+          if user.name === 'Admin'
+              div(style='margin-top:50px; display:flex; align-items:center; justify-content:center')
+                a(href="/admin/product/update/" + product.id, class='button-edit') Update
+                a(href="/admin/product/delete/" + product.id, class='button-delete') Delete
+
+    
