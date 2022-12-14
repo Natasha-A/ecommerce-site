@@ -23,31 +23,28 @@ const isLoggedIn = (req, res, next)=> {
 router.get('/', isLoggedIn,(req,res)=> {
     
     User.findById(req.user.id, (error, user)=>{
-
+      var totalCost = 0;
       if (error) {
         res.send("User not found");
       } else {
-        Order.find({order_by : req.user.id}, (error, orders)=> {
-          let total = 0;
+        Order.find({order_by : req.user.id}, (error, pastOrders)=> {
           if (error) {
             res.send("ERROR : order not found")
-          } else {
-            if (orders.order_items !== undefined) {
-              orders.order_items.map(oi=>{
-                  subtotal += oi.quantity * oi.price_per_unit;
-              })
-              total = Math.round((subtotal * 1.13)*100)/100;
           }
-
-            res.render('order_history', {title : "Order History", orders : orders, user : user, total : total})
-          }
-        })
-      }
+          pastOrders.forEach(function(order) {
+            let orderItems = order.order_items
+            let orderCost = 0;
+            orderItems.forEach(orderItem => {
+              orderCost += orderItem.price_per_unit * orderItem.quantity
+              totalCost += orderCost
+            })
+          })
+            res.render('order_history', {title : "Order History", orders : pastOrders, user : user, total : totalCost})
+          })
+        }
     })  
 
 })
-
-
 
 
 
