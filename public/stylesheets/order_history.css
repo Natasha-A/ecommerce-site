@@ -36,7 +36,7 @@ h2 {
 
 .account-details > div {
   font-size: 17px;
-  margin-bottom: 10px;
+  margin-bottom: 14px;
   font-weight: 600;
   color:#909090
 }
@@ -46,6 +46,7 @@ h2 {
   padding: 10px 40px;
 
 }
+
 
 .orderitem-view {
   height: 70vh;
@@ -105,8 +106,6 @@ h2 {
 }
 
 .orderitem-info {
-  flex-grow: 1;
-  padding-left: 15px;
   justify-content: space-between;
   flex-direction: row;
 }
@@ -114,8 +113,7 @@ h2 {
 .orderitem-section {
   display: flex;
   flex-direction: column;
-  flex: 1;
-  justify-content: stretch;
+  justify-content: space-between;
 }
 
 .orderitem__title {
@@ -165,29 +163,31 @@ span.selection {
 }
 
 .orderitem__buttons {
-  display: flex;
   justify-content: flex-end;
   gap: 10px;
   flex-direction: row;
-  flex-grow: 1;
   align-items: flex-end;
   margin-top: 18px;
 }
 
 .button-delete {
   background-color: #e84444;
-  padding: 10px 15px;
+  padding: 10px 8px;
   border-radius: 5px;
   color: white;
   font-weight: 600;
+  margin: 20px;
+
 }
 
 .button-edit {
   background-color: #67d6b4;
-  padding: 10px 20px;
   color: white;
   border-radius: 5px;
   font-weight: 600;
+  padding: 10px 7px;
+  margin: 10px;
+
 }
 
 .button-edit:hover {
@@ -199,6 +199,21 @@ span.selection {
   color: white;
   box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.15);
 }
+
+.button-add {
+  background-color: #67d6b4;
+  color: white;
+  border-radius: 5px;
+  font-weight: 600;
+  padding: 10px 7px;
+  margin-top: 70px;
+}
+
+.button-add:hover {
+  color: white;
+  box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.15);
+}
+
 
 /* Payment Details */
 .paymentdetails__section {

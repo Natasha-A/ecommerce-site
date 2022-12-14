@@ -10,12 +10,13 @@ block content
     .main-container
         .sidebar-container
             h2 Account Details
-            div Id : #{user.id}
-            div Name : #{user.name}
-            div Email : #{user.email}
-            if user.name == "Admin"
-                a(href="/admin/product/create" class='button-add') Add Product
-        
+            .account-details
+                div Id : #{user.id}
+                div Name : #{user.name}
+                div Email : #{user.email}
+                if user.name == "Admin"
+                    a(href="/admin/product/create" class='button-add') Add Product
+            
         .orderhistory-container
             h2=title
             .orderitem-view

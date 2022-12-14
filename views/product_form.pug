@@ -104,10 +104,6 @@ block content
               name='image'
               required='true'
             )
-        button.btn.btn-primary(type='submit') Add Product
+        .button-container
+          button.button(type='submit') Add Product
 
-    .sidebar-container 
-      if errors
-        ul
-          for error in errors
-            li!= error.msg
