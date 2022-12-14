@@ -7,7 +7,8 @@ const User = require("../schemas/users");
 const passport = require("passport");
 const Order = require("../schemas/orders");
 const Product = require("../schemas/products");
-
+let AVAILABLE_SIZES = ["X-Small", "Small", "Medium", "Large", "X-Large"];
+var async = require("async");
 const SUPER_USER_ID = "63976f7a0403b414ba4a4e4a";
 
 const isSuperUser = (req, res, next) => {
@@ -34,27 +35,30 @@ router.post("/create", [
   // Validate and santize fields
 
   (req, res, next) => {
-    let sizeOptions = []
-      if (req.body.xSmall == "on") sizeOptions.push("X-Small");
-      if (req.body.Small == "on") sizeOptions.push("Small");
-      if (req.body.Medium == "on") sizeOptions.push("Medium");
-      if (req.body.Large == "on") sizeOptions.push("Large");
-      if (req.body.xLarge == "on") sizeOptions.push("X-Large");
-      
-      if (sizeOptions.length == 0) {
-        sizeOptions = ['Small', 'Medium', 'Large'];
-      }
-    
+    let sizeOptions = [];
+    if (req.body.xSmall == "on") sizeOptions.push("X-Small");
+    if (req.body.Small == "on") sizeOptions.push("Small");
+    if (req.body.Medium == "on") sizeOptions.push("Medium");
+    if (req.body.Large == "on") sizeOptions.push("Large");
+    if (req.body.xLarge == "on") sizeOptions.push("X-Large");
+
+    if (sizeOptions.length == 0) {
+      sizeOptions = AVAILABLE_SIZES;
+    }
+
     res.locals.sizeArray = sizeOptions;
     req.sizeArray = sizeOptions;
-    next()
+    next();
   },
 
-    (req, res, next) => {
-      // Extract validation errors from request
-      const errors = validationResult(req);
+  (req, res, next) => {
+    // Extract validation errors from request
+    const errors = validationResult(req);
 
-      body("name", "Name must not be empty.").trim().isLength({ min: 1 }).escape(),
+    body("name", "Name must not be empty.")
+      .trim()
+      .isLength({ min: 1 })
+      .escape(),
       body("colors", "Colours must not be empty.")
         .trim()
         .isLength({ min: 1 })
@@ -62,60 +66,166 @@ router.post("/create", [
       body("image", "Image must not be empty and valid image type.")
         .trim()
         .isLength({ min: 1 })
-        .matches(/\.(jpg|jpeg|png|webp|avif|gif)$/),
-      body("sizes.*").escape()
+        .matches(/([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif))/i),
+      body("sizes.*").escape();
 
-      const product = new Product({
-        name:req.body.name,
-        price: req.body.price,
-        color: req.body.colors,
-        size: req.sizeArray,
-        category: req.body.category,
-        image: req.body.image,
-        posted_by: SUPER_USER_ID,
+    const product = new Product({
+      name: req.body.name,
+      price: req.body.price,
+      color: (req.body.colors).split(','),
+      size: req.sizeArray,
+      category: req.body.category,
+      image: req.body.image,
+      posted_by: SUPER_USER_ID,
+    });
+    console.log(product);
+
+    if (!errors.isEmpty()) {
+      res.render("product_form", {
+        title: "Create Product",
+        errors: errors.array(),
       });
-      console.log(product)
-
-      if (!errors.isEmpty()) {
-        res.render("product_form", {
-          title: "Create Product",
-          errors: errors.array(),
-        });
-        console.log(errors);
-      } else {
-        // Data from form is valid. Save Product
-        product.save((err) => {
-          if (err) {
-            return next(err);
-          }
-          res.redirect("/product/" + product.id);
-        });
-      }
+      console.log(errors);
+    } else {
+      // Data from form is valid. Save Product
+      product.save((err) => {
+        if (err) {
+          return next(err);
+        }
+        res.redirect("/product/" + product.id);
+      });
+    }
   },
 ]);
 
 // GET request to delete product
-router.get("/:id/delete", isSuperUser, function (req, res, next) {
-  res.render("product_delete", {
-    title: "Not implemented: GET Delete Product",
+router.get("/delete/:id", isSuperUser, function (req, res, next) {
+  Product.findById(req.params.id, (err, resultProduct) => {
+    if (err) {
+      return next(err);
+    }
+    if (resultProduct == null) {
+      res.redirect("/"); // no results
+    }
+    // Successful, render product
+    res.render("product_delete", {
+      title: "Delete Product",
+      product: resultProduct,
+    });
   });
 });
 
 // POST request to delete product
-router.post("/:id/delete", isSuperUser, function (req, res, next) {
-  res.render("product_delete", {
-    title: "Not implemented: POST Delete Product",
+router.post("/delete/:id", isSuperUser, function (req, res, next) {
+  Product.findById(req.body.productid, (err, results) => {
+    if (err) {
+      return next(err);
+    }
+
+    console.log("RESULTS: " + results);
+    // Success
+    Product.findByIdAndRemove(req.body.productid, (err) => {
+      if (err) {
+        return next(err);
+      }
+      console.log("redirect");
+      res.redirect("/");
+    });
   });
 });
 
-// GET request to update product
-router.get("/:id/update", isSuperUser, function (req, res, next) {
-  res.render("product_form", { title: "Not implemented: GET Update Product" });
+router.get("/update/:id", isSuperUser, function (req, res, next) {
+  Product.findById(req.params.id, (err, resultProduct) => {
+    if (err) {
+      return next(err);
+    }
+    if (resultProduct == null) {
+      // No results.
+      const err = new Error("Product not found");
+      err.status = 404;
+      return next(err);
+    }
+
+    console.log(resultProduct);
+    res.render("product_form", {
+      title: "Update Product",
+      product: resultProduct,
+    });
+  });
 });
 
-// POST request to update product
-router.post("/:id/update", isSuperUser, function (req, res, next) {
-  res.render("product_form", { title: "Not implemented: POST Update Product" });
-});
+//POST request to update product
+router.post("/update/:id", [
+  // Validate and santize fields
+
+  (req, res, next) => {
+    let sizeOptions = [];
+    if (req.body.xSmall == "on") sizeOptions.push("X-Small");
+    if (req.body.Small == "on") sizeOptions.push("Small");
+    if (req.body.Medium == "on") sizeOptions.push("Medium");
+    if (req.body.Large == "on") sizeOptions.push("Large");
+    if (req.body.xLarge == "on") sizeOptions.push("X-Large");
+
+    if (sizeOptions.length == 0) {
+      sizeOptions = AVAILABLE_SIZES;
+    }
+
+    res.locals.sizeArray = sizeOptions;
+    req.sizeArray = sizeOptions;
+    next();
+  },
+
+  (req, res, next) => {
+    // Extract validation errors from request
+    const errors = validationResult(req);
+
+    body("name", "Name must not be empty.")
+      .trim()
+      .isLength({ min: 1 })
+      .escape(),
+      body("colors", "Colours must not be empty.")
+        .trim()
+        .isLength({ min: 1 })
+        .escape(),
+      body("image", "Image must not be empty and valid image type.")
+        .trim()
+        .isLength({ min: 1 })
+        .matches(/([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif))/i),
+      body("sizes.*").escape();
+
+    const product = new Product({
+      name: req.body.name,
+      price: req.body.price,
+      color: (req.body.colors).split(","),
+      size: req.sizeArray,
+      category: req.body.category,
+      image: req.body.image.split(","),
+      posted_by: SUPER_USER_ID,
+      _id: req.params.id,
+    });
+    console.log(product);
+
+    if (!errors.isEmpty()) {
+      res.render("product_form", {
+        title: "Update Product",
+        errors: errors.array(),
+      });
+    } else {
+      // Data from form is valid. Update the record
+      Product.findByIdAndUpdate(
+        req.params.id,
+        product,
+        {},
+        (err, theproduct) => {
+          if (err) {
+            return next(err);
+          }
+
+          res.redirect("/product/" + theproduct.id);
+        }
+      );
+    }
+  },
+]);
 
 module.exports = router;
