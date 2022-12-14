@@ -10,11 +10,9 @@ block content
     .main-container
         .sidebar-container
             h2 Account Details
-            //- div Type : #{user.type}
             div Id : #{user.id}
             div Name : #{user.name}
             div Email : #{user.email}
-            //- #{user.phoneNumber}
             if user.name == "Admin"
                 a(href="/admin/product/create" class='button-add') Add Product
         
@@ -25,9 +23,9 @@ block content
                     each user in users
                         .usercontainer
                             div(style='margin-top: 100px;')
-                                div.text ID : #{user._id}
-                                div.text NAME : #{user.name}
-                                div.text EMAIL : #{user.email}
+                                div.text ID: #{user._id}
+                                div.text Name: #{user.name}
+                                div.text Email: #{user.email}
                                 .orderitem-info(style='margin-top: 100px;')
                                     a(href="/admin/user/delete/" + user._id, class='button-delete') Delete user
                                     a(href="/admin/orders/" + user.email, class='button-edit') View order history

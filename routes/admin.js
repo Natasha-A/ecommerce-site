@@ -26,7 +26,7 @@ router.get('/users',isSuperUser, (req,res)=>{
         if (error) {
             res.send("error finding users")
         } else {
-            res.render('admin_users_view', {title : "USERS", users : users})
+            res.render('admin_users_view', {title : "Customer Accounts", users : users})
         }
     })
 })
@@ -63,7 +63,7 @@ router.get('/orders/:email', isSuperUser, (req,res)=>{
               } else {
                   console.log(orders)
                   
-                res.render('order_history', {title : "order history", orders : orders, user : users[0]})
+                res.render('order_history', {title : "Order History", orders : orders, user : users[0]})
               }
             })
         }

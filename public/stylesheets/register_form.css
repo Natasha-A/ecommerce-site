@@ -12,43 +12,64 @@ h1 {
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 700;
-    font-size: 50px;
+    font-size: 2em;
     line-height: 61px;
     color: #000000;
     text-align: center;
-    
+}
+
+div.navbar {
+  margin-bottom: 0px;
 }
 
 .main-container {
   background: #E8F5F3;
   display: flex;
   flex-direction: row;
-  margin-top: 0px;
   justify-content: center;
+  height: 90vh;
+  align-items: center;
+  justify-content: center;
+}
 
+.main-container > div {
+  flex:1
+}
+
+
+
+.signup_title {
+  text-align: center;
+  font-weight: 700;
 }
 
 .register-container {
-  flex: 4;
   flex-direction: row;
-  margin-left:10vh;
-  margin-top: 115px;
-  height: 800px;
-  max-width: 623px;
   background: #FFFFFF;
   border: 2px solid #E6E6E6;
   box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.15);
   border-radius: 50px;
-    
+  padding:2% 5%;
+  margin: 5% 5%;
+  max-width: 700px;
 }
 
+.form-label {
+  margin:10px 0px;
+  font-size: 18px;
+  font-weight: 600;
+  color: grey;
+}
 
+.form-control {
+  margin-bottom: 10px !important;
+}
 .picture-container{
     box-sizing: border-box;
-    width: 842px;
-    height: 972px;
-    margin-left:50px;
     background: url("http://www.finelife.com.tw/wp-content/uploads/2022/06/product-image-4.jpg");
+    border:1px solid grey;
+    flex:1;
+    height: 100%;
 
 }
 
@@ -74,8 +95,7 @@ h1 {
     margin-left: 50px;
     margin-right: 50px;
     box-sizing: border-box;
-    width: 522px;
-    height: 62px;
+
     background: #FFFFFF;
     border: 1px solid #C3C3C3;
     border-radius: 10px;
@@ -83,7 +103,6 @@ h1 {
 }
 
 .button-container {
-    margin-top: 50px;
     display:flex;
     align-self: center;
     justify-content: center;
@@ -97,7 +116,7 @@ h1 {
     font-size: 18px;
     border-style: none;
     width: 60%;
-    height: 62px;
+    margin-top: 10%;
     border-radius: 15px;
 }
   

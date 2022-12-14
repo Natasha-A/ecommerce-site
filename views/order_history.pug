@@ -19,11 +19,15 @@ block content
                 a(href="/admin/product/create" class='button-add') Add Product
         
         .orderhistory-container
-            h2=title
+            if user.name !== "Admin"
+                 h2 Order History for #{user.name}
+            else 
+                h2=title
             .orderitem-view
                 each order in orders
                     .orderitem-container
-                        div #{order.order_date}
+                        div.account-details
+                            div #{order.order_date}
                         .orderitem-section
                             each orderitem in order.order_items
                                  .orderitem-row
@@ -40,5 +44,6 @@ block content
                                             div Quantity: 
                                                 span.selection  #{orderitem.quantity}
         
-            div.totalcost Total Costs: $#{total}
+            if total
+                div.totalcost Total Costs: $#{total}
 
