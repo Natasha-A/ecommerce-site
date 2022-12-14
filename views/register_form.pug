@@ -18,28 +18,31 @@ block content
                div.form-group
                   div.form-label(for="name") Enter Name:
                   input#name.form-control(name="name", type="text" placeholder="Enter your name")
-               if errors
-                  each error in errors
-                     if error.param == 'name'
-                        div.errorMessage(style="color:red") #{error.msg}
-               div.form-label(for="email") Please Enter Email Address:
-               input#email.form-control(name="email", type="text" placeholder="e.g. example@gmail.com")
-               if errors
-                  each error in errors
-                     if error.param == 'email'
-                        span(style="color:red") #{error.msg}
-               div.form-label(for="password") Please Enter Password:
-               input#password.form-control(name="password", type="password")
-               if errors
-                  each error in errors
-                     if error.param == 'password'
-                        span(style="color:red") #{error.msg}
-               div.form-label(for="passwordConfirm") Please Confirm Password:
-               input#passwordConfirm.form-control(name="passwordConfirm", type="password")
-               if errors
-                  each error in errors
-                     if error.param == 'passwordConfirm  '
-                        span(style="color:red") #{error.msg}
+                  if errors
+                     each error in errors
+                        if error.param == 'name'
+                           div.errorMessage(style="color:red") #{error.msg}
+               div.form-group
+                  div.form-label(for="email") Please Enter Email Address:
+                  input#email.form-control(name="email", type="text" placeholder="e.g. example@gmail.com")
+                  if errors
+                     each error in errors
+                        if error.param == 'email'
+                           span(style="color:red") #{error.msg}
+               div.form-group
+                  div.form-label(for="password") Please Enter Password:
+                  input#password.form-control(name="password", type="password")
+                  if errors
+                     each error in errors
+                        if error.param == 'password'
+                           span(style="color:red") #{error.msg}
+               div.form-group
+                  div.form-label(for="passwordConfirm") Please Confirm Password:
+                  input#passwordConfirm.form-control(name="passwordConfirm", type="password")
+                  if errors
+                     each error in errors
+                        if error.param == 'passwordConfirm  '
+                           span(style="color:red") #{error.msg}
 
 
                .button-container
