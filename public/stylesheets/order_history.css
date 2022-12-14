@@ -34,6 +34,13 @@ h2 {
   padding: 10px 30px;
 }
 
+.account-details > div {
+  font-size: 17px;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color:#909090
+}
+
 .orderhistory-container {
   flex: 1;
   padding: 10px 40px;
@@ -43,7 +50,9 @@ h2 {
 .orderitem-view {
   height: 70vh;
   overflow-y: scroll;
-  border:1px solid black;
+  border:2px solid rgb(225, 225, 225);
+  border-radius: 5px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 

@@ -39,7 +39,7 @@ router.get('/', isLoggedIn,(req,res)=> {
               total = Math.round((subtotal * 1.13)*100)/100;
           }
 
-            res.render('order_history', {title : "order history", orders : orders, user : user, total : total})
+            res.render('order_history', {title : "Order History", orders : orders, user : user, total : total})
           }
         })
       }

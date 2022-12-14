@@ -11,8 +11,9 @@ block content
         .sidebar-container
             h2 Account Details
             //- div Type : #{user.type}
-            div Name : #{user.name}
-            div Email : #{user.email}
+            .account-details
+                div Name: #{user.name}
+                div Email: #{user.email}
             //- #{user.phoneNumber}
             if user.name == "Admin"
                 a(href="/admin/product/create" class='button-add') Add Product
