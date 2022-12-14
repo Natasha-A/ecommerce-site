@@ -132,9 +132,71 @@ router.get("/update/:id", isSuperUser, function (req, res, next) {
   )
 });
 
-// POST request to update product
-router.post("/:id/update", isSuperUser, function (req, res, next) {
-  res.render("product_form", { title: "Not implemented: POST Update Product" });
-});
+//POST request to update product
+router.post("/update/:id", [
+  // Validate and santize fields
+
+  (req, res, next) => {
+    let sizeOptions = []
+      if (req.body.xSmall == "on") sizeOptions.push("X-Small");
+      if (req.body.Small == "on") sizeOptions.push("Small");
+      if (req.body.Medium == "on") sizeOptions.push("Medium");
+      if (req.body.Large == "on") sizeOptions.push("Large");
+      if (req.body.xLarge == "on") sizeOptions.push("X-Large");
+      
+      if (sizeOptions.length == 0) {
+        sizeOptions = AVAILABLE_SIZES;
+      }
+    
+    res.locals.sizeArray = sizeOptions;
+    req.sizeArray = sizeOptions;
+    next()
+  },
+
+    (req, res, next) => {
+      // Extract validation errors from request
+      const errors = validationResult(req);
+
+      body("name", "Name must not be empty.").trim().isLength({ min: 1 }).escape(),
+      body("colors", "Colours must not be empty.")
+        .trim()
+        .isLength({ min: 1 })
+        .escape(),
+      body("image", "Image must not be empty and valid image type.")
+        .trim()
+        .isLength({ min: 1 })
+        .matches(/([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif))/i),
+      body("sizes.*").escape()
+
+      const product = new Product({
+        name:req.body.name,
+        price: req.body.price,
+        color: (req.body.colors).split(","),
+        size: req.sizeArray,
+        category: req.body.category,
+        image: (req.body.image).split(","),
+        posted_by: SUPER_USER_ID,
+        _id: req.params.id
+      });
+      console.log(product)
+
+      if (!errors.isEmpty()) {
+        res.render("product_form", {
+          title: "Update Product",
+          errors: errors.array(),
+        });
+      } else {
+        // Data from form is valid. Update the record 
+        Product.findByIdAndUpdate(req.params.id, product, {}, (err, theproduct) => {
+         if (err) {
+          return next(err)
+         } 
+
+         res.redirect('/product/' + theproduct.id)
+        })
+       
+      }
+  },
+]);
 
 module.exports = router;

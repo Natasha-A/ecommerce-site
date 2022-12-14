@@ -89,7 +89,15 @@ block content
             )
         div.form-group
           ir 
-          if !product
+          if product
+            label(for='image') Image URL 
+            input#colors.form-control(
+              type='text'
+              name='image'
+              required='true'
+              value=(product.image).toString()
+            )
+          else 
             label(for='image') Image URL 
             input#colors.form-control(
               type='text'
@@ -97,7 +105,7 @@ block content
               required='true'
             )
         button.btn.btn-primary(type='submit') Add Product
-        
+
     .sidebar-container 
       if errors
         ul

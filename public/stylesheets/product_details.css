@@ -131,3 +131,30 @@ select {
   font-size: 20px;
   color: #8f8f8f;
 }
+
+.button-delete {
+  background-color: #e84444;
+  padding: 10px 15px;
+  border-radius: 5px;
+  color: white;
+  font-weight: 600;
+  margin-left: 15px;
+}
+
+.button-edit {
+  background-color: #67d6b4;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+.button-edit:hover {
+  color: white;
+  box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.15);
+}
+
+.button-delete:hover {
+  color: white;
+  box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.15);
+}
