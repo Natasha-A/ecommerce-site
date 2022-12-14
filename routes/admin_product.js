@@ -47,10 +47,6 @@ router.post("/create", [
     
     res.locals.sizeArray = sizeOptions;
     req.sizeArray = sizeOptions;
-    console.log(sizeOptions)
-    console.log(res.sizeArray)
-
-
     next()
   },
 
@@ -68,8 +64,6 @@ router.post("/create", [
         .isLength({ min: 1 })
         .matches(/([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif))/i),
       body("sizes.*").escape()
-
-      console.log(res)
 
       const product = new Product({
         name:req.body.name,
